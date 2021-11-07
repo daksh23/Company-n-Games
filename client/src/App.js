@@ -1,28 +1,24 @@
-import React, { useEffect } from 'react';
-import ImageToSlices from 'image-to-slices';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import Home from './Components/Screens/Home';
+import Header from './Components/Extra/Header';
+import Puzzle from './Components/Puzzle/Puzzle';
 
 function App() {
-
-//  var imageToSlices = require('image-to-slices');
-
-    var lineXArray = [100, 200];
-    var lineYArray = [100, 200];
-
-    var imagePath = '/logo512.png';
-
-    useEffect(() => {
-      ImageToSlices(imagePath, [100, 300], [100, 200, 300], {
-        saveToDir:"/Images"
-      }, function(dataUrlList) {
-        console.log('sliced!', dataUrlList);
-      });
-      
-    })
     
   return (
-    <div>
-
-    </div>
+    <Router>
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<Home />}/>
+          <Route exact path="/puzzle" element={<Puzzle />}/>
+        </Routes>
+    </Router>
   );
 }
 
