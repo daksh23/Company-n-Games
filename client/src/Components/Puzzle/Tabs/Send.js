@@ -1,28 +1,56 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Box from '@mui/material/Box';
-import {TextField, Button } from '@mui/material';
+import {TextField, Button, Alert, Stack} from '@mui/material';
 
+const ImageThumb = ({image}) => {
+    return <img src={URL.createObjectURL(image)} alt={image.name} style={{height:"450px", width:"450px"}} />;
+};
 
 function Send() {
+
+    const [file,
+        setFile] = React.useState("");
+    const [Uploaded,
+        setUploaded] = useState(true)
+
+    const changeHandler = (event) => {
+        setFile(event.target.files[0]);
+        setUploaded(false);
+    };
+
     return (
-        <Box
-            component="form"
-            sx={{
-            '& > :not(style)': { m: 1, width: '25ch' },
+        <div>
+            <Box
+                component="form"
+                sx={{
+                '& > :not(style)': {
+                    m: 1,
+                    width: '25ch'
+                }
             }}
-            noValidate
-            autoComplete="off"
-            className="SendBox"
-        >
-        <TextField id="standard-basic" label="Standard" variant="standard" style={{width:'50%'}} />
-        <Button
-            variant="contained"
-            component="label"
-            >
-            Upload File
-            <input type="file" hidden />
-        </Button>
-      </Box>
+                noValidate
+                autoComplete="off"
+                className="SendBox">
+                <TextField
+                    id="standard-basic"
+                    label="Colleagues"
+                    variant="standard"
+                    style={{
+                    width: '50%'
+                }}/>
+               
+                <Button variant="contained" component="label" style={{backgroundColor:"black", color:'white'}}>
+                    Upload image
+                    <input type="file" name="file" onChange={changeHandler} hidden/>
+                </Button>
+                <Button variant="contained" component="label" disabled={Uploaded}>
+                    send
+                </Button>
+            </Box>
+            <Box  className="SendBox" mt={2}>
+                {file && <ImageThumb image={file}/>}
+            </Box>
+        </div>
     )
 }
 
