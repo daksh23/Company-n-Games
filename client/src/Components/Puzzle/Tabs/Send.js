@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Box from '@mui/material/Box';
 import {TextField, Button, Alert, Stack} from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ImageThumb = ({image}) => {
     return <img src={URL.createObjectURL(image)} alt={image.name} style={{height:"450px", width:"450px"}} />;
@@ -16,7 +18,9 @@ function Send() {
     const changeHandler = (event) => {
         setFile(event.target.files[0]);
         setUploaded(false);
+        toast("File Uploaded")
     };
+
 
     return (
         <div>
@@ -50,6 +54,7 @@ function Send() {
             <Box  className="SendBox" mt={2}>
                 {file && <ImageThumb image={file}/>}
             </Box>
+            <ToastContainer />
         </div>
     )
 }

@@ -1,20 +1,5 @@
 import React from 'react'
-import {
-    Box,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemIcon,
-    ListItemText,
-    Avatar,
-    IconButton,
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
-    Grid,
-    Typography,
-    Paper
-} from '@mui/material';
+import {Box, List, ListItem, Grid, Paper} from '@mui/material';
 
 function Receive() {
     const [dense,
@@ -26,33 +11,67 @@ function Receive() {
             flexGrow: 1
         }}>
             <Grid container spacing={1}>
-                <Grid item xs={8}>
+                <Grid item xs={7}>
                     <Paper>
-                        <img src="https://miro.medium.com/max/1350/1*wtKKatCjkoXz1SpuiqZgJA.jpeg" height="100px" width="auto"/>
+                        Puzzle area
+                    </Paper>
+
+                </Grid>
+
+                <Grid item xs={3}>
+                    <Paper>
+                        <div>
+                            {[
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9
+                            ].map(i => <img
+                                src="https://miro.medium.com/max/1350/1*wtKKatCjkoXz1SpuiqZgJA.jpeg"
+                                height="100px"
+                                width="50%"/>)
+                            }
+
+                        </div>
                     </Paper>
                 </Grid>
 
                 <Grid item xs={2}>
-                <Paper className="imgList">
 
-                <img src="https://picsum.photos/seed/picsum/200/300" width="100%" height="150px"/>
-                <img src="https://picsum.photos/seed/picsum/200/300" width="100%" height="150px"/>
-                <img src="https://picsum.photos/seed/picsum/200/300" width="100%" height="150px"/>
-                <img src="https://picsum.photos/seed/picsum/200/300" width="100%" height="150px"/>
-
-                </Paper>
-                </Grid>
-                
-                <Grid item xs={2}>
-                    <Paper>
-
+                    <Paper
+                        style={{
+                        maxHeight: '72vh',
+                        overflow: 'auto'
+                    }}>
                         <List>
-                            {[1, 2, 3, 4].map((p) => (
+                            {[
+                                1,
+                                2,
+                                3,
+                                4,
+                                2,
+                                3,
+                                4,
+                                2,
+                                3,
+                                4,
+                                2,
+                                3,
+                                4,
+                                2,
+                                3,
+                                4
+                            ].map((p) => (
                                 <ListItem>
                                     {p}
                                 </ListItem>
                             ))
-    }
+}
                         </List>
 
                     </Paper>
