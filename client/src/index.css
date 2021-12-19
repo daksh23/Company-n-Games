@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+#root,
 body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -51,4 +56,50 @@ code {
 
 .imgList{
   padding: 10px;
+}
+
+
+/* receive page - Puzzle */
+.puzzleContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.playerBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.page > div {
+  touch-action: none;
+  /* background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; */
+  width: auto;
+  height: 100%;
+  will-change: transform;
+  box-shadow: 0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
+  height: auto;
 }

@@ -1,20 +1,69 @@
 import React from 'react'
-import {Box, List, ListItem, Grid, Paper} from '@mui/material';
+import CardViewer from '../Receives/CardViewer';
 
 function Receive() {
-    const [dense,
+
+   return(
+    <div className='container'>
+        <CardViewer />
+    </div>
+    )
+}
+
+export default Receive;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+ const [dense,
         setDense] = React.useState(false);
     const [secondary,
         setSecondary] = React.useState(false);
+
+    const randomColor = () => {
+        return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
     return (
-        <Box sx={{
-            flexGrow: 1
-        }}>
-            <Grid container spacing={1}>
-                <Grid item xs={7}>
-                    <Paper>
-                        Puzzle area
-                    </Paper>
+            <Grid container spacing={1} style={{height:'100vh', background:'red'}}>
+                <Grid item xs={7} style={{ height:'78vh' }}>
+                <Paper style={{ background:'yellow' }}>
+                    <Grid container spacing={0.05}>
+                        {
+                            [0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+                                <Grid item xs={4} style={{Height:'80vh'}}>
+                                    <div style={{background:randomColor(), height:'200px'}}>Hooray something is here!</div>
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
+                </Paper>
 
                 </Grid>
 
@@ -23,11 +72,6 @@ function Receive() {
                         <div>
                             {[
                                 1,
-                                2,
-                                3,
-                                4,
-                                5,
-                                6,
                                 7,
                                 8,
                                 9
@@ -41,13 +85,13 @@ function Receive() {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={2}>
-
-                    <Paper
-                        style={{
-                        maxHeight: '72vh',
+                <Grid item xs={2}   style={{
+                        maxHeight: '78vh',
                         overflow: 'auto'
                     }}>
+
+                    <Paper
+                      >
                         <List>
                             {[
                                 1,
@@ -77,8 +121,5 @@ function Receive() {
                     </Paper>
                 </Grid>
             </Grid>
-        </Box>
-    )
-}
 
-export default Receive
+*/

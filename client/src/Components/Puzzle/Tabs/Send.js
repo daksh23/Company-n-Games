@@ -21,7 +21,6 @@ function Send() {
         toast("File Uploaded")
     };
 
-
     return (
         <div>
             <Box
