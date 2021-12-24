@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {Dialog, Typography, Divider, makeStyles, Link} from '@material-ui/core';
+import {Dialog, Typography, Divider, makeStyles} from '@material-ui/core';
 import {Button, TextField, IconButton} from '@mui/material';
 import Google from '@mui/icons-material/Google';
-import {typography} from '@mui/system';
 
 const useStyles = makeStyles(theme => ({
     root: {

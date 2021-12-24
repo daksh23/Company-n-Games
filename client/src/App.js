@@ -3,11 +3,11 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 import Home from './Components/Screens/Home';
 import Header from './Components/Extra/Header';
 import Puzzle from './Components/Puzzle/Puzzle';
+import SmashBoss from './Components/SmashTheBoss/SmashBoss';
 
 function App() {
     
@@ -17,6 +17,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />}/>
           <Route exact path="/puzzle" element={<Puzzle />}/>
+          <Route exact path="/smashtheboss" element={<SmashBoss />}/>
         </Routes>
     </Router>
   );

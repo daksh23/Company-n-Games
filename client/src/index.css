@@ -103,3 +103,14 @@ code {
   width: 100%;
   height: auto;
 }
+
+
+
+/* Smath the Boss */
+
+.SmashBtnBox{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

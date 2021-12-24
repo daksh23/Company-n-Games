@@ -19,16 +19,12 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function Puzzle(props) {
-  const theme = useTheme();
+function Puzzle() {
+  
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_, newValue) => {
     setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
   };
 
   return (

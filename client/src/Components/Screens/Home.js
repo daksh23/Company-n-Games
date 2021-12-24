@@ -1,5 +1,5 @@
 import React from 'react'
-import {Fab, Button, Divider} from '@mui/material';
+import {Fab, Button} from '@mui/material';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 
 function Home() {
@@ -12,6 +12,11 @@ function Home() {
             <p>&emsp;</p>
             <Button variant="outlined" href="quiz" className="GameBtns">
                 Quiz
+            </Button>
+            <p>&emsp;</p>
+
+            <Button variant="outlined" href="smashtheboss" className="GameBtns">
+                Sm**h the boss
             </Button>
 
             </div>
