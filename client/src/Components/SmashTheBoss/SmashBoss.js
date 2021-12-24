@@ -7,26 +7,30 @@ function SmashBoss() {
 
     const [Smashed,
         setSmashed] = useState(true)
-    const [Images,
-        setImages] = useState('https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png')
 
     const [Flag,
         setFlag] = useState(false)
     const [Number,
         setNumber] = useState(0)
 
+    const [Score,
+        setScore] = useState(0)
+
+    const ImgPlace = 'https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png'
+    const Images = 'https://www.pngall.com/wp-content/uploads/5/The-Boss-Baby-PNG.png'
+
     useEffect(() => {
-        
+
         let interval = 0;
 
         if (Flag) {
             // create interval
             interval = setInterval(
             // set number every 5s
-            () => setNumber(Math.floor(Math.random() * (8 + 1))), 1000);
+            () => setNumber(Math.floor(Math.random() * (8 + 1))), 1200);
         }
-         // clean up interval on unmount
-         return () => {
+        // clean up interval on unmount
+        return () => {
             clearInterval(interval);
         };
 
@@ -45,6 +49,10 @@ function SmashBoss() {
     }
 
     const SmashHandler = (index) => {
+
+        if (Number === index) {
+            setScore(Score + 1);
+        }
         return console.log(`Smashed!! : ${index} `);
     }
 
@@ -53,23 +61,33 @@ function SmashBoss() {
             flexGrow: 1,
             padding: 2
         }}>
-            {Number}
+            <h4
+                style={{
+                padding: 0,
+                margin: 0,
+                marginBottom:5,
+                textAlign: 'center'
+            }}>
+                Your Score : {Score}
+            </h4>
             <Grid
                 container
                 spacing={{
-                xs: 1,
-                md: 2
-            }}
+                    xs: 1,
+                    md: 2
+                }}
                 columns={{
-                xs: 4,
-                sm: 8,
-                md: 12
-            }}>
+                    xs: 4,
+                    sm: 8,
+                    md: 12
+                }}>
                 {Array
                     .from(Array(9))
                     .map((_, index) => (
-                        <Grid item xs={2} sm={4} md={4} key={index}>
+                        <Grid item xs={2} sm={4} md={4} key={index} >
+                            
                             <button
+                            className='test'
                                 style={{
                                 textAlign: "center",
                                 background: 'white',
@@ -81,7 +99,9 @@ function SmashBoss() {
                             }}
                                 onClick={() => SmashHandler(index)}
                                 disabled={Smashed}>
-                                <img src={Images} height='100%' width='50%'/>
+                                {Number === index
+                                    ? <img src={Images} height='100%' width='50%'/>
+                                    : <img src={ImgPlace} height='100%' width='50%'/>}
                             </button>
                         </Grid>
                     ))}
