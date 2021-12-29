@@ -10,8 +10,8 @@ function Home() {
                 Puzzle
             </Button>
             <p>&emsp;</p>
-            <Button variant="outlined" href="quiz" className="GameBtns">
-                Quiz
+            <Button variant="outlined" href="cyw" className="GameBtns">
+                Crack Your Way
             </Button>
             <p>&emsp;</p>
 

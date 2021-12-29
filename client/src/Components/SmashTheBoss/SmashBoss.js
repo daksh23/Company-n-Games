@@ -27,7 +27,7 @@ function SmashBoss() {
             // create interval
             interval = setInterval(
             // set number every 5s
-            () => setNumber(Math.floor(Math.random() * (8 + 1))), 1200);
+            () => setNumber(Math.floor(Math.random() * (8 + 1))), 1000);
         }
         // clean up interval on unmount
         return () => {

@@ -73,7 +73,7 @@ function Header() {
                             textDecoration: "none",
                             color: 'white'
                         }}>
-                            Company 'n' Games
+                            Fun'Friday
                         </Link>
                     </Typography>
 
