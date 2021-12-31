@@ -100,8 +100,8 @@ function SmashBoss() {
                                 onClick={() => SmashHandler(index)}
                                 disabled={Smashed}>
                                 {Number === index
-                                    ? <img src={Images} height='100%' width='50%'/>
-                                    : <img src={ImgPlace} height='100%' width='50%'/>}
+                                    ? <img alt='Boss' src={Images} height='100%' width='50%'/>
+                                    : <img alt='Boss' src={ImgPlace} height='100%' width='50%'/>}
                             </button>
                         </Grid>
                     ))}

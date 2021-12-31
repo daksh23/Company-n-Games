@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dialog, Typography, Divider, makeStyles, Link} from '@material-ui/core';
+import {Dialog, Typography} from '@material-ui/core';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -57,6 +57,7 @@ function MapModel({open, handleClose}) {
                                 </Typography>
                                 <div className='zoom'>
                                     <img
+                                        alt='QRCode'
                                         src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png'
                                         height='50px'
                                         width='50px'/>
