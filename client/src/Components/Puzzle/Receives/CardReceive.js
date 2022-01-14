@@ -1,24 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Box, Button} from '@mui/material';
+import {Link} from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import PuzzleSolver from './PuzzleSolver';
 
-function CardReceive({name, nickName}) {
+function CardReceive({name, nickName, UserID, profile}) {
+
     return (
         <Box className='playerBox'>
 
-            <Card sx={{
-                display: 'flex', width: 'auto',p: '20px'
-            }} elevation={10} >
+            <Card
+                sx={{
+                display: 'flex',
+                width: 'auto',
+                p: '20px'
+            }}
+                elevation={10}>
                 <Box
                     sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     padding: '10px',
-                    mr: 1,
-
+                    mr: 1
                 }}>
                     <CardContent
                         sx={{
@@ -30,6 +36,9 @@ function CardReceive({name, nickName}) {
                         <Typography variant="subtitle1" color="text.secondary" component="div">
                             {nickName}
                         </Typography>
+                        <Typography variant="subtitle1" color="text.secondary" component="div">
+                            {UserID}
+                        </Typography>
                     </CardContent>
                     <Box
                         sx={{
@@ -37,11 +46,13 @@ function CardReceive({name, nickName}) {
                         alignItems: 'center',
                         pl: 1,
                         pb: 1,
-                        ml: 1,
+                        ml: 1
                     }}>
-                        <Button variant="contained" color="primary">
-                            Start
-                        </Button>
+                        <Link to={`/puzzleSolver/${name}/${UserID}`} className='PuzzleStart'>
+                            <Button variant="contained">
+                                Start
+                            </Button>
+                        </Link>
                     </Box>
                 </Box>
                 <CardMedia
@@ -49,7 +60,7 @@ function CardReceive({name, nickName}) {
                     sx={{
                     width: 250
                 }}
-                    image="/logo512.png"
+                    image={profile}
                     alt="Live from space album cover"/>
             </Card>
 

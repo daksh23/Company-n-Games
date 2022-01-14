@@ -58,8 +58,10 @@ function CYW() {
             marginTop: '30px'
         }}>
 
-            <Card sx={{
-                minWidth: 300
+            <Card
+                sx={{
+                minWidth: 300,
+                width: '50%'
             }}>
                 <CardContent>
                     <Typography variant="h5" component="h2">
@@ -76,8 +78,11 @@ function CYW() {
 }
                     </Typography>
                 </CardContent>
-                <CardActions>
+                <div className='CardAction'>
                     <TextField
+                        style={{
+                        width: '100%'
+                    }}
                         id="outlined-basic"
                         label="Answer"
                         variant="outlined"
@@ -87,6 +92,7 @@ function CYW() {
                         setans(e.target.value);
                     }}/>
                     &nbsp;
+                    <br/>
                     <Button
                         size="small"
                         variant='contained'
@@ -94,7 +100,7 @@ function CYW() {
                         style={{
                         height: 'auto'
                     }}>Submit</Button>
-                </CardActions>
+                </div>
             </Card>
 
             <div className='InfoButton'>

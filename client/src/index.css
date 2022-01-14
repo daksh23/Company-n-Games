@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* blue: #1976D2, black */
 
 html,
 #root,
@@ -74,6 +72,16 @@ code {
   height: 85vh;
 }
 
+.PuzzleStart{
+  text-decoration: none;
+  color: black;
+}
+
+.PuzzleStart:hover{
+  color: #1976D2;
+}
+
+
 .page {
   position: absolute;
   width: 100%;
@@ -139,4 +147,18 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.CardAction{
+  padding: 20px;
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.CardAction > button{ 
+  padding: 10px;
+  color: white;
+  cursor: pointer;
 }
