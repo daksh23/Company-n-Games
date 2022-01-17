@@ -16,8 +16,6 @@ Company n Games is gamehub for Employees, who looking for friday games.
 ## Pending Features for Games
 
   1. Smash The B*ss
-  - Timer
-  - 2d-Image effect
   - Set B*ss Image by player
 
   2. Tic-Tac-Toe
