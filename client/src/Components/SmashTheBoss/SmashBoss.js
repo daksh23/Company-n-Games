@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import {ToastContainer, toast} from 'react-toastify';
 
 function SmashBoss() {
 
@@ -16,38 +17,63 @@ function SmashBoss() {
     const [Score,
         setScore] = useState(0)
 
+    const [seconds,
+        setSeconds] = useState(0);
+
     const ImgPlace = 'https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png'
     const Images = 'https://www.pngall.com/wp-content/uploads/5/The-Boss-Baby-PNG.png'
 
     useEffect(() => {
 
         let interval = 0;
+        let CounterInterval = null;
 
         if (Flag) {
             // create interval
-            interval = setInterval(
-            // set number every 5s
-            () => setNumber(Math.floor(Math.random() * (8 + 1))), 1000);
+            interval = setInterval(() => setNumber(Math.floor(Math.random() * (8 + 1))), 1000);
+
+            CounterInterval = setInterval(() => {
+                setSeconds(seconds => seconds + 1);
+            }, 1000);
         }
+
+        if (seconds === 60) {
+            setSmashed(true);
+            console.log('Stop the game');
+            setFlag(false);
+            setSeconds(0);
+
+            // toast
+            toast(`Game Over, You smashed ${Score} times`);
+        }
+
         // clean up interval on unmount
         return () => {
             clearInterval(interval);
+            clearInterval(CounterInterval);
         };
 
-    }, [Flag])
+    }, [Flag, seconds]);
 
+    // start game
     const StartGame = () => {
         setSmashed(false);
         console.log('Smash the boss');
         setFlag(true);
+
+        // toast message for start game
+        toast("Game Started, You can smash the boss now, You have 60 seconds to smash the boss")
     }
 
+    //Stop Game and reset the game
     const StopGame = () => {
         setSmashed(true);
         console.log('Stop the game');
         setFlag(false);
+        setSeconds(0);
     }
 
+    // Hanlder
     const SmashHandler = (index) => {
 
         if (Number === index) {
@@ -61,33 +87,50 @@ function SmashBoss() {
             flexGrow: 1,
             padding: 2
         }}>
-            <h4
+
+            <div
                 style={{
+                display: 'flex',
+                justifyContent: 'space-between',
                 padding: 0,
+                fontSize: '1.2rem',
                 margin: 0,
-                marginBottom:5,
-                textAlign: 'center'
+                color: 'gray',
+                marginBottom: 5
             }}>
-                Your Score : {Score}
-            </h4>
+                <h5
+                    style={{
+                    padding: 0,
+                    margin: 0
+                }}>
+                    Your Score : {Score}
+                </h5>
+                <h5
+                    style={{
+                    padding: 0,
+                    margin: 0
+                }}>
+                    {seconds}
+                    Sec
+                </h5>
+            </div>
             <Grid
                 container
                 spacing={{
-                    xs: 1,
-                    md: 2
-                }}
+                xs: 1,
+                md: 2
+            }}
                 columns={{
-                    xs: 4,
-                    sm: 8,
-                    md: 12
-                }}>
+                xs: 4,
+                sm: 8,
+                md: 12
+            }}>
                 {Array
                     .from(Array(9))
                     .map((_, index) => (
-                        <Grid item xs={2} sm={4} md={4} key={index} >
-                            
+                        <Grid item xs={2} sm={4} md={4} key={index}>
                             <button
-                            className='test'
+                                className='test'
                                 style={{
                                 textAlign: "center",
                                 background: 'white',
@@ -100,8 +143,24 @@ function SmashBoss() {
                                 onClick={() => SmashHandler(index)}
                                 disabled={Smashed}>
                                 {Number === index
-                                    ? <img alt='Boss' src={Images} height='100%' width='50%'/>
-                                    : <img alt='Boss' src={ImgPlace} height='100%' width='50%'/>}
+                                    ? <img
+                                            alt='Boss'
+                                            src={Images}
+                                            height='100%'
+                                            width='50%'
+                                            style={{
+                                            borderRadius: '100%',
+                                            boxShadow: '0 5px 2px 0 rgba(0, 0, 0, 0.2), 0 5px 2px 0 rgba(0, 0, 0, 0.19)'
+                                        }}/>
+                                    : <img
+                                        alt='Boss'
+                                        src={ImgPlace}
+                                        height='100%'
+                                        width='50%'
+                                        style={{
+                                        borderRadius: '100%',
+                                        // boxShadow: '0 5px 2px 0 rgba(0, 0, 0, 0.2), 0 5px 2px 0 rgba(0, 0, 0, 0.19)'
+                                    }}/>}
                             </button>
                         </Grid>
                     ))}
@@ -111,7 +170,6 @@ function SmashBoss() {
                     variant="contained"
                     size="large"
                     style={{
-                    backgroundColor: 'black',
                     color: 'white'
                 }}
                     onClick={() => StartGame()}>
@@ -126,6 +184,7 @@ function SmashBoss() {
                     Stop
                 </Button>
             </div>
+            <ToastContainer/>
         </Box>
     )
 }
