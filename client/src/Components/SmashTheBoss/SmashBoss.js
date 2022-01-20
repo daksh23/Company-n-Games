@@ -3,14 +3,29 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import {ToastContainer, toast} from 'react-toastify';
+import {Fab} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import {setBossImage} from '../actions/actions'
+import {useDispatch, useSelector} from 'react-redux'
+import Tofile from 'data-uri-to-file';
 
 function SmashBoss() {
+
+    const dispatch = new useDispatch();
+
+    const {sbi} = useSelector(state => state);
+
+    const [files,
+        setFiles] = useState('https://www.pngall.com/wp-content/uploads/5/The-Boss-Baby-PNG.png');
 
     const [Smashed,
         setSmashed] = useState(true)
 
     const [Flag,
         setFlag] = useState(false)
+
+    const [imageFlag,setimageFlag] = useState(false)
     const [Number,
         setNumber] = useState(0)
 
@@ -21,7 +36,6 @@ function SmashBoss() {
         setSeconds] = useState(0);
 
     const ImgPlace = 'https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png'
-    const Images = 'https://www.pngall.com/wp-content/uploads/5/The-Boss-Baby-PNG.png'
 
     useEffect(() => {
 
@@ -53,7 +67,7 @@ function SmashBoss() {
             clearInterval(CounterInterval);
         };
 
-    }, [Flag, seconds]);
+    }, [Flag, seconds, imageFlag]);
 
     // start game
     const StartGame = () => {
@@ -63,6 +77,7 @@ function SmashBoss() {
 
         // toast message for start game
         toast("Game Started, You can smash the boss now, You have 60 seconds to smash the boss")
+
     }
 
     //Stop Game and reset the game
@@ -80,6 +95,18 @@ function SmashBoss() {
             setScore(Score + 1);
         }
         return console.log(`Smashed!! : ${index} `);
+    }
+
+    // file uplaoding
+    const changeHandler = (event) => {
+        
+        // dispatch(setBossImage(event.target.files[0]));
+      
+    };
+
+    const cs = () => {
+        toast('coming soon')
+
     }
 
     return (
@@ -145,7 +172,7 @@ function SmashBoss() {
                                 {Number === index
                                     ? <img
                                             alt='Boss'
-                                            src={Images}
+                                            src={files}
                                             height='100%'
                                             width='50%'
                                             style={{
@@ -158,8 +185,7 @@ function SmashBoss() {
                                         height='100%'
                                         width='50%'
                                         style={{
-                                        borderRadius: '100%',
-                                        // boxShadow: '0 5px 2px 0 rgba(0, 0, 0, 0.2), 0 5px 2px 0 rgba(0, 0, 0, 0.19)'
+                                        borderRadius: '100%'
                                     }}/>}
                             </button>
                         </Grid>
@@ -184,11 +210,33 @@ function SmashBoss() {
                     Stop
                 </Button>
             </div>
-            <ToastContainer/>
+            <div className='InfoButton'>
+                <Fab onClick={cs}>
+                    <label htmlFor="icon-button-file" >
+                        {/* <input id="icon-button-file" type="file" onChange={changeHandler} hidden/> */}
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera/>
+                        </IconButton>
+                    </label>
+                </Fab>
+            </div>
+            <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={true}/>
         </Box>
     )
 }
 
-export default SmashBoss
+export const toDataUrl = (url, callback) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            callback(reader.result);
+        };
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+  };
 
-//
+export default SmashBoss

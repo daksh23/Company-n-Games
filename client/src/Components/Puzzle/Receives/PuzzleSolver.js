@@ -16,8 +16,6 @@ const puzzlePis = [
 
 function PuzzleSolver(props) {
 
-    const data = useParams();
-
     return (
         <Box
             sx={{

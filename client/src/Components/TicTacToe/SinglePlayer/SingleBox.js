@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Box, Button} from '@mui/material';
+import { Button} from '@mui/material';
 import Board from './Board';
 
 const Winner = (board) => {
