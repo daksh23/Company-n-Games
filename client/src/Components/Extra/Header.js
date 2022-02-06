@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import LoginModel from './LoginModel';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import IconButton from '@mui/material/IconButton';
 import SignupModel from './SignupModel';
 
@@ -58,8 +58,8 @@ function Header() {
             <AppBar
                 position="static"
                 style={{
-                background: "black"
-            }}>
+                background: "black",
+            }} elevation={0}>
                 <Toolbar>
                     <Typography
                         variant="h6"
@@ -71,7 +71,8 @@ function Header() {
                             to='/'
                             style={{
                             textDecoration: "none",
-                            color: 'white'
+                            color:'white',
+                            fontFamily:"'Mochiy Pop P One', sans-serif"
                         }}>
                             Fun'Friday
                         </Link>
@@ -86,7 +87,7 @@ function Header() {
                         ? 'true'
                         : undefined}
                         onClick={handleClick}>
-                        <AccountCircleIcon />
+                        <AccountBoxIcon fontSize='large'/>
                     </IconButton>
 
                     <Menu

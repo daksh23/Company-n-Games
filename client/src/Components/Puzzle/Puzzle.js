@@ -1,11 +1,7 @@
 import React from 'react' 
 import PropTypes from 'prop-types';
 // import SwipeableViews from 'react-swipeable-views';
-import AppBar from '@mui/material/AppBar';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-
+import {AppBar, Tabs, Tab, Box} from '@mui/material';
 import TabPanel from './Tabs/TabPanel'
 import Send from './Tabs/Send'
 import Receive from './Tabs/Receive'

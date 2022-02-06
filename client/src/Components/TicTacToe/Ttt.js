@@ -1,41 +1,52 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import SingleBox from './SinglePlayer/SingleBox';
+import MultiplayerBox from './MultiPlayer/MultiplayerBox';
+import TextField from '@mui/material/TextField';
+
+import Container from '@mui/material/Container';
 
 function Ttt() {
 
-    const [PlayerMode,
-        setPlayerMode] = useState('single')
+    const [PlayerName,
+        SetPlayerName] = useState({"x": '', "o": ''})
 
-    const HandlerPlayerMode = (value) => {
-        setPlayerMode(value)
-        console.log(value)
-    }
+    useEffect(() => {}, [PlayerName]);
+
+    console.log(PlayerName);
 
     return (
-        <Box>
-            <div
-                style
-                ={{
-                marginTop: '10px',
-                width: '100%',
-                justifyContent: 'center',
-                display: 'flex',
-                justifyItems: 'center'
-            }}>
-                <Button size="large" onClick={() => HandlerPlayerMode('single')}>
-                    Single Player
-                </Button>
-                <span>
-                    &nbsp;&nbsp;&nbsp;
-                </span>
-                <Button size="large" onClick={() => HandlerPlayerMode('multiplayer')}>
-                    Multi player
-                </Button>
+        <Container maxWidth="sm">
+            <div className='PlayerName'>
+                <TextField
+                    id="standard-basic"
+                    label="xPlayer"
+                    variant="standard"
+                    value={PlayerName.x}
+                    onChange={e => {
+                    SetPlayerName({
+                        ...PlayerName,
+                        x: e.target.value
+                    });
+                }}/>
+                &nbsp; &nbsp;  &nbsp; &nbsp;
+                <TextField
+                    id="standard-basic"
+                    label="oPlayer"
+                    variant="standard"
+                    value={PlayerName.o}
+                    onChange={e => {
+                    SetPlayerName({
+                        ...PlayerName,
+                        o: e.target.value
+                    });
+                }}/>
             </div>
-            <SingleBox/>
-        </Box>
+            <div>
+                
+            </div>
+            <MultiplayerBox PlayerName={PlayerName} x={PlayerName.x} o={PlayerName.o}/>
+        </Container>
     )
 }
 

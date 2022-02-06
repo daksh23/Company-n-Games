@@ -5,6 +5,7 @@ function Board(props) {
     return (
         <div className='Board'>
             {[...Array(9)].map((_, index) => <Square
+                Disable={props.Disable}
                 key={index}
                 name={index}
                 onClick={() => props.onClick(index)}

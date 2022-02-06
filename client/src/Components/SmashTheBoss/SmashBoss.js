@@ -1,18 +1,22 @@
 import React, {useState, useEffect} from 'react'
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
+import {
+    Box,
+    Grid,
+    Button,
+    Fab,
+    IconButton,
+    Container
+} from '@mui/material';
 import {ToastContainer, toast} from 'react-toastify';
-import {Fab} from '@mui/material';
-import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import {setBossImage} from '../actions/actions'
+
+// import {setBossImage} from '../actions/actions'
 import {useDispatch, useSelector} from 'react-redux'
-import Tofile from 'data-uri-to-file';
+// import Tofile from 'data-uri-to-file';
 
 function SmashBoss() {
 
-    const dispatch = new useDispatch();
+    // const dispatch = new useDispatch();
 
     const {sbi} = useSelector(state => state);
 
@@ -25,7 +29,8 @@ function SmashBoss() {
     const [Flag,
         setFlag] = useState(false)
 
-    const [imageFlag,setimageFlag] = useState(false)
+    const [imageFlag,
+        setimageFlag] = useState(false)
     const [Number,
         setNumber] = useState(0)
 
@@ -99,9 +104,9 @@ function SmashBoss() {
 
     // file uplaoding
     const changeHandler = (event) => {
-        
+
         // dispatch(setBossImage(event.target.files[0]));
-      
+
     };
 
     const cs = () => {
@@ -115,82 +120,58 @@ function SmashBoss() {
             padding: 2
         }}>
 
-            <div
-                style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                padding: 0,
-                fontSize: '1.2rem',
-                margin: 0,
-                color: 'gray',
-                marginBottom: 5
-            }}>
-                <h5
-                    style={{
-                    padding: 0,
-                    margin: 0
+            <Container maxWidth='lg'>
+                <Grid
+                    container
+                    spacing={{
+                    xs: 1,
+                    md: 2
+                }}
+                    columns={{
+                    xs: 4,
+                    sm: 8,
+                    md: 12
                 }}>
-                    Your Score : {Score}
-                </h5>
-                <h5
-                    style={{
-                    padding: 0,
-                    margin: 0
-                }}>
-                    {seconds}
-                    Sec
-                </h5>
-            </div>
-            <Grid
-                container
-                spacing={{
-                xs: 1,
-                md: 2
-            }}
-                columns={{
-                xs: 4,
-                sm: 8,
-                md: 12
-            }}>
-                {Array
-                    .from(Array(9))
-                    .map((_, index) => (
-                        <Grid item xs={2} sm={4} md={4} key={index}>
-                            <button
-                                className='test'
-                                style={{
-                                textAlign: "center",
-                                background: 'white',
-                                height: '160px',
-                                width: '100%',
-                                position: 'relative',
-                                borderRadius: '5px',
-                                border: '2px solid #e0e0e0'
-                            }}
-                                onClick={() => SmashHandler(index)}
-                                disabled={Smashed}>
-                                {Number === index
-                                    ? <img
+                    {Array
+                        .from(Array(9))
+                        .map((_, index) => (
+                            <Grid item xs={2} sm={4} md={4} key={index}>
+                                <button
+                                    className='test'
+                                    style={{
+                                    textAlign: "center",
+                                    background: 'white',
+                                    height: '160px',
+                                    width: '100%',
+                                    position: 'relative',
+                                    borderRadius: '5px',
+                                    border: '2px solid #e0e0e0'
+                                }}
+                                    onClick={() => SmashHandler(index)}
+                                    disabled={Smashed}>
+                                    {Number === index
+                                        ? <img
+                                                alt='Boss'
+                                                src={files}
+                                                height='100%'
+                                                width='50%'
+                                                style={{
+                                                borderRadius: '100%',
+                                                boxShadow: '0 5px 2px 0 rgba(0, 0, 0, 0.2), 0 5px 2px 0 rgba(0, 0, 0, 0.19)'
+                                            }}/>
+                                        : <img
                                             alt='Boss'
-                                            src={files}
+                                            src={ImgPlace}
                                             height='100%'
                                             width='50%'
                                             style={{
-                                            borderRadius: '100%',
-                                            boxShadow: '0 5px 2px 0 rgba(0, 0, 0, 0.2), 0 5px 2px 0 rgba(0, 0, 0, 0.19)'
-                                        }}/>
-                                    : <img
-                                        alt='Boss'
-                                        src={ImgPlace}
-                                        height='100%'
-                                        width='50%'
-                                        style={{
-                                        borderRadius: '100%'
-                                    }}/>}
-                            </button>
-                        </Grid>
-                    ))}
-            </Grid>
+                                            borderRadius: '100%'
+                                        }}/>}
+                                </button>
+                            </Grid>
+                        ))}
+                </Grid>
+            </Container>
             <div className='SmashBtnBox'>
                 <Button
                     variant="contained"
@@ -209,10 +190,37 @@ function SmashBoss() {
                     disabled={Smashed}>
                     Stop
                 </Button>
+              
             </div>
+            <div
+                    style={{
+                    display: 'flex',
+                    flexDirection:'column',
+                    justifyContent: 'start',
+                    padding: 0,
+                    fontSize: '1.2rem',
+                    margin: 0,
+                    color: 'gray',
+                    marginBottom: 5
+                }}>
+                    <h5
+                        style={{
+                        padding: 0,
+                        margin: 0
+                    }}>
+                        Your Score : {Score}
+                    </h5>
+                    <h5
+                        style={{
+                        padding: 0,
+                        margin: 0
+                    }}>
+                        Time: {seconds} &nbsp; Sec
+                    </h5>
+                </div>
             <div className='InfoButton'>
                 <Fab onClick={cs}>
-                    <label htmlFor="icon-button-file" >
+                    <label htmlFor="icon-button-file">
                         {/* <input id="icon-button-file" type="file" onChange={changeHandler} hidden/> */}
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <PhotoCamera/>
@@ -237,6 +245,6 @@ export const toDataUrl = (url, callback) => {
     xhr.open('GET', url);
     xhr.responseType = 'blob';
     xhr.send();
-  };
+};
 
 export default SmashBoss

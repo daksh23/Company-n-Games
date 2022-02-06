@@ -45,6 +45,75 @@ code {
 }
 
 
+
+/* Button design */
+
+.grid-wrapper {
+  display: inline-grid;
+  /* grid-template-columns: repeat(3, 75px);
+  grid-template-rows: repeat(3, 75px); */
+  grid-auto-rows: 100px;
+  grid-auto-columns: 100px;
+  grid-gap: 5px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.puzzle {
+  grid-row: 2 / 3;
+  grid-column: 1 / 3;
+  grid-column-start: span 2;
+
+}
+
+.cyw {
+  grid-column: 1 / 4;
+  grid-column-start: span 1;
+
+}
+
+
+.puzzle:hover {
+  background-color: orange;
+}
+
+.ttt {
+  grid-column: 2 / 4;
+  background-color: pink;
+}
+
+.STheB {
+  grid-column: 1 / 4;
+  background-color: green;
+}
+
+.box {
+  background-color: lightgreen;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*  Puzzle page design   */
 .SendBox{
   display: flex;
@@ -193,4 +262,17 @@ code {
   margin: 0 auto;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.tttBtnBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: row;
+}
+
+.PlayerName {
+  display: flex;
+  justify-content: center;
 }
