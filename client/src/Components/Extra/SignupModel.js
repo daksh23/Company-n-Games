@@ -45,19 +45,12 @@ const SignupModel = ({open, handleClose}) => {
 
     const classes = useStyles();
 
-    const [email,
-        setEmail] = useState('');
-    const [password,
-        setPassword] = useState('');
-    const [FirstName,
-        setFirstName] = useState('')
-
-    const [LastName,
-        setLastName] = useState('')
+    const [User,
+        setUser] = useState({'firstname': '', 'lastname': '', 'email': '', 'password': ''});
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(email, password, FirstName, LastName);
+        console.log(User);
         handleClose();
     };
 
@@ -68,19 +61,61 @@ const SignupModel = ({open, handleClose}) => {
             </Typography>
             {/* Sign up with email and password */}
             <form onSubmit={handleSubmit} className={classes.root}>
-                <TextField label="FirstName" variant="filled" type="text" required/>
-                <TextField label="LastName" variant="filled" type="text" required/>
-                <TextField label="Email" variant="filled" type="email" required/>
-                <TextField label="Password" variant="filled" type="password" required/>
+                <TextField
+                    value={User.firstname}
+                    onChange={e => {
+                    setUser({
+                        ...User,
+                        firstname: e.target.value
+                    })
+                }}
+                    label="FirstName"
+                    variant="filled"
+                    type="text"
+                    required/>
+                <TextField
+                    value={User.lastname}
+                    onChange={e => {
+                    setUser({
+                        ...User,
+                        lastname: e.target.value
+                    })
+                }}
+                    label="LastName"
+                    variant="filled"
+                    type="text"
+                    required/>
+                <TextField
+                    value={User.email}
+                    onChange={e => {
+                    setUser({
+                        ...User,
+                        email: e.target.value
+                    })
+                }}
+                    label="Email"
+                    variant="filled"
+                    type="email"
+                    required/>
+                <TextField
+                    value={User.password}
+                    onChange={e => {
+                    setUser({
+                        ...User,
+                        password: e.target.value
+                    })
+                }}
+                    label="Password"
+                    variant="filled"
+                    type="password"
+                    required/>
 
                 <Button type="submit" variant="contained">
                     Sign Up
                 </Button>
             </form>
 
-            <Divider/>
-
-            {/* Sign up with google */}
+            <Divider/> {/* Sign up with google */}
             <IconButton
                 aria-label="google"
                 sx={{

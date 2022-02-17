@@ -33,7 +33,7 @@ const getPuzzleImg = (req, res) => {
             var buffer = Buffer.from(data, 'base64');
             
             //store buffer-images into specific folder
-            fs.writeFileSync(`./imagesHere/data-${i}.` + ext, buffer);
+            fs.writeFileSync(`./images/data-${i}.` + ext, buffer);
         }
         console.log('exit loop');
     });

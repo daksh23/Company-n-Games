@@ -38,14 +38,12 @@ const LoginModel = ({open, handleClose}) => {
 
     const classes = useStyles();
 
-    const [email,
-        setEmail] = useState('');
-    const [password,
-        setPassword] = useState('');
+    const [User,
+        setUser] = useState({'email': '', 'password': ''});
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(email, password);
+        console.log(User);
         handleClose();
     };
 
@@ -60,15 +58,15 @@ const LoginModel = ({open, handleClose}) => {
                     label="Email"
                     variant="filled"
                     type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    value={User.email}
+                    onChange={e => setUser({...User, email:e.target.value})}
                     required/>
                 <TextField
                     label="Password"
                     variant="filled"
                     type="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    value={User.password}
+                    onChange={e => setUser({...User, password:e.target.value})}
                     required/>
 
                 <Link href="#" variant="body2" className={classes.linkDiv}>
