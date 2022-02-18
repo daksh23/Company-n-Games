@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(express.static(__dirname + '/uploads'));
 
 // get routes
 app.use("/api", apiroutes);

@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const jswt = require('jsonwebtoken');
 const User = require('../Models/user.model');
 
-
 // signup
 const signup = async(req, res) => {
 
@@ -36,39 +35,40 @@ const signup = async(req, res) => {
 
 // login
 const login = async(req, res) => {
-    const { email, password} = req.body;
+    const {email, password} = req.body;
+    console.log(email, password)
 
     const user = await UserModel.findOne({email});
 
-    const matchPassword = await bcrypt.compare(password, user.password);
+    if (!user) {
+      return res.send({message: "User Not Found"});
+    } else {
+        const matchPassword = await bcrypt.compare(password, user.password);
+        token = jswt.sign({
+            id: user._id,
+            email: user.email
+        }, SECRET_KEY, {expiresIn: '2h'})
 
-    token =  jswt.sign({id:user._id,email:user.email}, SECRET_KEY,{ expiresIn: '2h'})
-    
-    if(matchPassword == true){
+        if (matchPassword == true) {
 
-      // set generated token in header and verify in middleware
-      res.header("auth-token", token).json({
-        error: null,
-        data: {
-          token, user
-        },
-      });
+            // set generated token in header and verify in middleware
+            res
+                .header("auth-token", token)
+                .json({
+                    error: null,
+                    data: {
+                        token,
+                        user
+                    }
+                });
 
+        } else {
+            return res.send("Wrong ID or Password");
+        }
 
     }
-    else{
-      return res.send("Wrong ID or Password");
-    }
-
-    // verifyToken(token);
 
 }
-
-const verifyToken = async(tokenStr) => {
-
-}
-
-
 
 module.exports = {
     signup,
