@@ -2,7 +2,9 @@ const {SECRET_KEY} = require('../config/config');
 const UserModel = require('../Models/user.model')
 const bcrypt = require('bcrypt');
 const jswt = require('jsonwebtoken');
-const User = require('../Models/user.model');
+const ProfileModel = require('../Models/profile.model');
+var mongoose = require('mongoose');
+
 
 // signup
 const signup = async(req, res) => {
@@ -39,8 +41,10 @@ const login = async(req, res) => {
     console.log(email, password)
 
     const user = await UserModel.findOne({email});
+    var objectID = mongoose.Types.ObjectId(user._id);
 
-    if (!user) {
+
+    if (!user || objectID == null) {
       return res.send({message: "User Not Found"});
     } else {
         const matchPassword = await bcrypt.compare(password, user.password);
@@ -49,6 +53,10 @@ const login = async(req, res) => {
             email: user.email
         }, SECRET_KEY, {expiresIn: '2h'})
 
+
+        // get profile of user
+        const profile = await ProfileModel.findOne({UserID: objectID});
+        
         if (matchPassword == true) {
 
             // set generated token in header and verify in middleware
@@ -58,19 +66,65 @@ const login = async(req, res) => {
                     error: null,
                     data: {
                         token,
-                        user
+                        user,
+                        profile
                     }
                 });
 
         } else {
             return res.send("Wrong ID or Password");
         }
-
     }
+}
 
+
+// get & set profile
+const getProfile = async(req, res) => {
+    
+    var objectID = mongoose.Types.ObjectId(req.body.userID);
+
+    // get profile of user
+    const profile = await ProfileModel.findOne({UserID: objectID});
+        
+    res.send('data').json({profile})
+
+}
+
+const setProfile = async(req, res) => {
+
+    var { UserID, username } = req.body;
+    var objectID = mongoose.Types.ObjectId(UserID);
+    var image = req.file.path;
+
+    const profile = new ProfileModel();
+    profile.UserID = objectID;
+    profile.profileImage =  image;
+    console.log(profile)
+    profile.username = username;
+    await profile.save();
+
+    res.statusCode = 201;
+    res.json({message: `Profile Added`, profile});
+
+}
+
+const updateProfile = async(req, res) => {
+    
+        var { UserID, username } = req.body;
+        var objectID = mongoose.Types.ObjectId(UserID);
+        var image = req.file.path;
+    
+        const profile = await ProfileModel.findOneAndUpdate({UserID: objectID}, {profileImage: image, username: username});
+    
+        res.statusCode = 201;
+        res.json({message: `Profile Updated`, profile});
+    
 }
 
 module.exports = {
     signup,
-    login
+    login,
+    getProfile,
+    setProfile,
+    updateProfile
 }

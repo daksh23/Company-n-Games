@@ -6,16 +6,12 @@ const setBossImage = async (req, res) => {
 
     var objectID = mongoose.Types.ObjectId(req.body.userID);
     var user = await stbModel.findOne({ UserID: objectID });
-    
-
-
 
     if (user) {
         fs.unlinkSync(user.BossImage);
         var stb = await stbModel.findOneAndUpdate({ UserID:objectID }, { BossImage: req.file.path });
 
         // Now delete exist image from server
-
 
         res.status(200).json({
             message: "Successfully Updated",

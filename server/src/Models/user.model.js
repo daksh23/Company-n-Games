@@ -4,15 +4,11 @@ const mongoose = require('mongoose');
 const userModel = mongoose.Schema({
     firstName: {
         type: String,
-        required: [
-            true, 'The first name field is required!'
-        ],
+        required: [true, 'The first name field is required!']
     },
     lastName: {
         type: String,
-        required: [
-            true, 'The last name field is required!'
-        ],
+        required: [true, 'The last name field is required!']
     },
     email: {
         type: String,
@@ -23,9 +19,7 @@ const userModel = mongoose.Schema({
     },
     password: {
         type: String,
-        required: [
-            true, 'The password field is required!'
-        ],
+        required: [true, 'The password field is required!']
     }
 });
 
