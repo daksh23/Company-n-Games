@@ -20,6 +20,22 @@ const pages = [
         UserID: 67890,
         profile: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGMU0d9h9lF4BKoQMfziHQ-viu' +
                 'tDzAA0Ln-ML7_i3anS_u8eYBh-TdhnjKgf71RCEYj9g&usqp=CAU'
+    },
+    {
+        color: '#fff',
+        name: 'Kamlesh',
+        nickName: 'Doubt',
+        UserID: 67190,
+        profile: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGMU0d9h9lF4BKoQMfziHQ-viu' +
+                'tDzAA0Ln-ML7_i3anS_u8eYBh-TdhnjKgf71RCEYj9g&usqp=CAU'
+    },
+    {
+        color: '#fff',
+        name: 'ss',
+        nickName: 'voniyo',
+        UserID: 61890,
+        profile: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGMU0d9h9lF4BKoQMfziHQ-viu' +
+                'tDzAA0Ln-ML7_i3anS_u8eYBh-TdhnjKgf71RCEYj9g&usqp=CAU'
     }
 ]
 

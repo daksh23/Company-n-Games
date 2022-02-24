@@ -12,6 +12,7 @@ Company n Games is gamehub for Employees, who looking for friday games.
 ## Upcoming Games
 1. Truth and Dare
 2. Dam Saraaj
+3. get different part( thinking about New Name)
 
 ## Pending Features for Games
 
@@ -19,8 +20,4 @@ Company n Games is gamehub for Employees, who looking for friday games.
   - Set B*ss Image by player
 
   2. Tic-Tac-Toe
-  - Player Name
   - Winner celebration
-  - toast
-  - addding player Names
-  - Computer Player

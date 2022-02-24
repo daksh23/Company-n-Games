@@ -5,5 +5,4 @@ import thunk from 'redux-thunk';
 
 let store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
-
 export default store;

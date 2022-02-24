@@ -32,17 +32,17 @@ function Puzzle() {
         textColor="inherit"
         variant="fullWidth"
       >
-        <Tab label="SEND" />
-        <Tab label="Receive" />
+        <Tab label="challenges" />
+        <Tab label="Send challenges" />
         <Tab label="HISTORY"  />
       </Tabs>
     </AppBar>
   
       <TabPanel value={value} index={0}>
-       <Send />
+        <Receive />
       </TabPanel>
       <TabPanel value={value} index={1} >
-        <Receive />
+       <Send />
       </TabPanel>
       <TabPanel value={value} index={2} >
         <History />     
