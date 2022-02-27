@@ -2,16 +2,6 @@ import React from 'react'
 import {Fab, Button} from '@mui/material';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 
-import Paper from '@mui/material/Paper';
-import {styled} from '@mui/material/styles';
-
-const Item = styled(Paper)(({theme}) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary
-}));
-
 function Home() {
     return (
         <div className="HomeScreen">
@@ -33,6 +23,16 @@ function Home() {
                 <Button variant="outlined" href="ttt" className="GameBtns">
                     Tic-Tac-Toe
                 </Button>
+                <p>&emsp;</p>
+                <Button variant="outlined" href="colors" className="GameBtns">
+                    Changing Colors
+                </Button>
+
+                <p>&emsp;</p>
+                <Button variant="outlined" href="/snake" className="GameBtns">
+                   Snake
+                </Button>
+
 
             </div>
             <div className='InfoButton'>

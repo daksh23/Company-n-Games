@@ -20,7 +20,7 @@ const userModel = mongoose.Schema({
     password: {
         type: String,
         required: [true, 'The password field is required!']
-    }
+    },
 });
 
 const User = mongoose.model('User', userModel);

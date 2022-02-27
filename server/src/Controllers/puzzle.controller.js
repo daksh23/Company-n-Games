@@ -46,5 +46,3 @@ const getPuzzleImg = (req, res) => {
 module.exports ={
     getPuzzleImg
 }
-
-

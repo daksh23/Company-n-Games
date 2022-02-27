@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import MultiplayerBox from './MultiPlayer/MultiplayerBox';
 import TextField from '@mui/material/TextField';
 
@@ -45,7 +43,7 @@ function Ttt() {
             <div>
                 
             </div>
-            <MultiplayerBox PlayerName={PlayerName} x={PlayerName.x} o={PlayerName.o}/>
+            <MultiplayerBox PlayerName={PlayerName} SetPlayerName={SetPlayerName}/>
         </Container>
     )
 }

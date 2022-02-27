@@ -8,7 +8,6 @@ const Square = (props) => {
 
     const style = {
         backgroundColor: color,
-        border: '0.5px solid black',
         color: 'white',
         fontSize: '50px',
         fontFamily: 'Mochiy Pop P One, sans-serif',

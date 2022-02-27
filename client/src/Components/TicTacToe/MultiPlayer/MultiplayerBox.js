@@ -44,7 +44,7 @@ const Winner = (board) => {
 
 }
 
-function MultiPlayerBox({PlayerName}) {
+function MultiPlayerBox({PlayerName, SetPlayerName}) {
 
     // state for board and button
     const [Disabled,
@@ -77,6 +77,7 @@ function MultiPlayerBox({PlayerName}) {
             const winnerName = isPlayer == 'x' ? PlayerName.x :PlayerName.o;
 
             toast.success("Winner is " + winnerName);
+            SetPlayerName({ x:"", o:"" });
             setIsPlayer("");
             setVisible(true)
             setDisabled(true);

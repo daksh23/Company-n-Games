@@ -12,7 +12,7 @@ const ProfileModel = mongoose.Schema({
     },
     profileImage: {
         type: String,
-    }
+    },
 });
 
 const Profile = mongoose.model('Profile', ProfileModel);

@@ -282,3 +282,57 @@ code {
   display: flex;
   justify-content: center;
 }
+
+/* Changing Colors */
+
+.cc-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.cc-item {
+  width: 32%;
+  background-color: #232323;
+  padding-bottom: 32%; /* Same as width, sets height */
+  margin-bottom: 2%; /* (100-32*3)/2 */
+  position: relative;
+}
+/* .cc-item:nth-child(3n) {
+  background-color: #F00;
+} */
+
+/* Snake Game */
+
+.snake-container{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  height: 100%;
+  flex-direction: column;
+}
+
+.snake-game-area {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  border: 2px solid #000;
+}
+
+.snake-dot {
+  position: absolute;
+  width: 2%;
+  height: 2%;
+  background-color: #000;
+  border: 1px solid #fff;
+  z-index: 2;
+}
+
+.snake-food {
+  position: absolute;
+  width: 2%;
+  height: 2%;
+  background: #1976D2;
+  border-radius: 100%;
+  z-index: 1;
+}
