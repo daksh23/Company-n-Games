@@ -11,8 +11,8 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import IconButton from '@mui/material/IconButton';
 import SignupModel from './SignupModel';
 
-function Header() {
-
+const Header = (props) => {
+    
     const [openLogin, setopenLogin] = useState(false);
     const [openSignup, setopenSignup] = useState(false);
 
@@ -49,7 +49,6 @@ function Header() {
     const MenuhandleClose = () => {
         setAnchorEl(null);
     };
-    
 
     return (
         <Box sx={{

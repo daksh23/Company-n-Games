@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Home from './Components/Screens/Home';
 import Header from './Components/Extra/Header';
+import PlayHeader from './Components/Extra/PlayHeader';
 import Puzzle from './Components/Puzzle/Puzzle';
 import SmashBoss from './Components/SmashTheBoss/SmashBoss';
 import CYW from './Components/CrackYourWay/CYW';
@@ -13,12 +14,13 @@ import Ttt from './Components/TicTacToe/Ttt';
 import PuzzleSolver from './Components/Puzzle/Receives/PuzzleSolver';
 import Color from './Components/Colors/Color';
 import SnakeGame from './Components/Snake/SnakeGame';
+import SuffleHeader from './Components/Extra/SuffleHeader';
 
 function App() {
-    
+  
   return (
     <Router>
-        <Header />
+        <SuffleHeader />
         <Routes>
           <Route exact path="/" element={<Home />}/>
           <Route exact path="/puzzle" element={<Puzzle />}/>

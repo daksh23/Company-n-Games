@@ -61,7 +61,7 @@ function CYW() {
                 sx={{
                 minWidth: 300,
                 width: '50%'
-            }}>
+            }} elevation={10}>
                 <CardContent>
                     <Typography variant="h5" component="h2">
                         {CurrentQues + 1}. {ques[CurrentQues].Question}

@@ -29,6 +29,14 @@ code {
   font-family: 'Pacifico', cursive;
 }
 
+.PlayHeader-text{
+  color: #1976D2;
+  }
+
+.PlayHeader-close{
+  color:#1976D2;
+}
+
 
 /* Home page */
 .InfoButton{
