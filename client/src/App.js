@@ -15,19 +15,22 @@ import PuzzleSolver from './Components/Puzzle/Receives/PuzzleSolver';
 import Color from './Components/Colors/Color';
 import SnakeGame from './Components/Snake/SnakeGame';
 import SuffleHeader from './Components/Extra/SuffleHeader';
+import RockPaperScissors from './Components/Rock-Paper-Scissors/RockPaperScissors';
 
 function App() {
   
   return (
     <Router>
-        <SuffleHeader />
+        {/* <SuffleHeader /> */}
         <Routes>
           <Route exact path="/" element={<Home />}/>
           <Route exact path="/puzzle" element={<Puzzle />}/>
           <Route exact path="/puzzlesolver/:name/:userID" element={<PuzzleSolver />} />
           <Route exact path="/smashtheboss" element={<SmashBoss />}/>
           <Route exact path='/snake' element={<SnakeGame />} />
-          <Route exact path='/colors' element={<Color />} />
+          {/* <Route exact path='/colors' element={<Color />} /> */}
+          
+          <Route exact path="/rps" element={<RockPaperScissors />}/>
           <Route exact path="/cyw" element={<CYW />}/>
           <Route exact path="/ttt" element={<Ttt />}/>
         </Routes>

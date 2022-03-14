@@ -6,7 +6,16 @@ function Home() {
 
     return (
         <div className="HomeScreen">
-            <div className="centerButtons">
+         
+        </div>
+    )
+}
+
+export default Home
+
+/*
+
+   <div className="centerButtons">
                 <Button variant="outlined" href="puzzle" className="GameBtns" >
                     Puzzle
                 </Button>
@@ -25,8 +34,8 @@ function Home() {
                     Tic-Tac-Toe
                 </Button>
                 <p>&emsp;</p>
-                <Button variant="outlined" href="colors" className="GameBtns" >
-                    Changing Colors
+                <Button variant="outlined" href="rps" className="GameBtns" >
+                   Rock-Paper-Scissors
                 </Button>
 
                 <p>&emsp;</p>
@@ -47,18 +56,8 @@ function Home() {
                 </Fab>
             </div>
 
-          
+
         </div>
-    )
-}
 
-export default Home
 
-                    // <div class="grid-wrapper">
-                    //     <div class="box puzzle">Puzzle</div>
-                    //     <div class="box ttt">Tic Tac Toe</div>
-                    //     <div class="box cyw">Crack your way</div>
-                       
-                    //      {/* <div class="box g">G</div> */}
-                    //     <div class="box STheB">Smash The B*ss</div>
-                    // </div>
+ */
