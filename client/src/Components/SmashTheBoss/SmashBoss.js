@@ -217,7 +217,7 @@ function SmashBoss() {
                     }}>
                         Time: {seconds} &nbsp; Sec
                     </h5>
-                </div>
+            </div>
             <div className='InfoButton'>
                 <Fab onClick={cs}>
                     <label htmlFor="icon-button-file">
@@ -232,19 +232,5 @@ function SmashBoss() {
         </Box>
     )
 }
-
-export const toDataUrl = (url, callback) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = () => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            callback(reader.result);
-        };
-        reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob';
-    xhr.send();
-};
 
 export default SmashBoss

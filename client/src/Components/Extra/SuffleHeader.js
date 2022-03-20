@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from './Header'
 import PlayHeader from './PlayHeader'
 import { useLocation } from 'react-router-dom';
 
@@ -13,7 +12,7 @@ function SuffleHeader() {
 
   return (
     <React.Fragment>
-        {path === '/' ? <Header /> : <PlayHeader name={GameName}/>}
+        {path === '/' ? "" : <PlayHeader name={GameName}/>}
     </React.Fragment>
   )
 }

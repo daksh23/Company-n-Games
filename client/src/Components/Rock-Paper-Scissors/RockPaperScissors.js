@@ -1,64 +1,97 @@
 import React, {useState, useEffect, useMemo} from 'react'
+import {Button, Dialog, Typography} from '@mui/material'
+import {useSpring, animated} from '@react-spring/web'
+import {ToastContainer, toast} from 'react-toastify';
 
-const RockPaperScissors = () => {
+const RockPaperScissors = ({open, handleClose}) => {
 
     const choices = ["rock", "paper", "scissors"];
-
-    const [playerChoice,
+   
+    const [playerChoices,
         setPlayerChoice] = useState("");
-    const [computerChoice,
+    const [computerChoices,
         setComputerChoice] = useState("");
 
     const setChoice = (e) => {
-        console.log('player choice: ', e.target.dataset.id);
+
         setPlayerChoice(e.target.dataset.id);
+        const playerAns = e.target.dataset.id;
         
-        const selection = setInterval(() => {
-            ComputerThinking()
-        }, 3000);
+        const computerChoiceIndex = Math.floor(Math.random() * choices.length);
+        const computerAns = choices[computerChoiceIndex];
         
-        const done = setInterval(() => {
-            result()
-        }, 4000);
+        setComputerChoice(computerAns);
+        
+
+        result(computerAns, playerAns);
 
     };
 
-    const ComputerThinking = () => {
-        const computerChoiceIndex = Math.floor(Math.random() * choices.length);
+    const result = (computerChoice, playerChoice) => {
 
-        setComputerChoice(choices[computerChoiceIndex]);
-        console.log('computer choice: ', choices[computerChoiceIndex]);
+        if (computerChoice === playerChoice) {
+            toast("Tie")
+        } else if ((computerChoice === "rock" && playerChoice === "scissors") || (computerChoice === "paper" && playerChoice === "rock") || (computerChoice === "scissors" && playerChoice === "paper")) {
+            toast("Computer wins")
+        } else {
+            toast("You win")
+        }
     }
 
-    const result = () => {
-
-        if (computerChoice === playerChoice) 
-            console.log('tie');
-        
-        else if ((computerChoice === "rock" && playerChoice === "scissors") || (computerChoice === "paper" && playerChoice === "rock") || (computerChoice === "scissors" && playerChoice === "paper")) 
-            console.log('computer wins');
-        
-        else 
-            console.log('player wins');
-        }
-    ;
-
-    return (
-        <div>
-            <button data-id="rock" onClick={setChoice}>
-                Rock
-            </button>
-            <button data-id="paper" onClick={setChoice}>
-                Paper
-            </button>
-            <button data-id="scissors" onClick={setChoice}>
-                Scissor
-            </button>
-            <button onClick={result}>
-                Submit
-            </button>
+return (
+        <Dialog open={open} onClose={handleClose}>
+        <Typography variant="h5" component="h5" className='rpsHeading'>
+            Rock Paper Scissors
+        </Typography>
+        <div className='rps'>
+            <div className='FirstRps'>
+                <Button
+                    size="large"
+                    sx={{
+                    background: "black"
+                }}
+                    variant='contained'
+                    className='rpsBtn'
+                    data-id="rock"
+                    onClick={setChoice}>
+                    👊
+                </Button>
+                &nbsp; &nbsp; &nbsp;
+                <Button
+                    size="large"
+                    sx={{
+                    background: "black"
+                }}
+                    variant='contained'
+                    className='rpsBtn'
+                    data-id="paper"
+                    onClick={setChoice}>
+                    ✋
+                </Button>
+            </div>
+            <div className='LastRps'>
+                <Button
+                    size="large"
+                    sx={{
+                    background: "black"
+                }}
+                    variant='contained'
+                    className='rpsBtn'
+                    data-id="scissors"
+                    onClick={setChoice}>
+                    ✌️
+                </Button>
+            </div>
+            <div>
+                    You : {playerChoices}
+                    <br />
+                    Computer : {computerChoices}
+                    <br />
+            </div>
         </div>
-    )
+        <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={true}/>
+    </Dialog>
+)
 }
 
 export default RockPaperScissors

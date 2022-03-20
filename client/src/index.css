@@ -53,21 +53,40 @@ code {
   height:90vh;
 }
 
-.GameBtns{
-  height:80px;
-  width:180px;
-}
-
-
-
-
 /* Button design */
 
+.HomeScreen{
+  height:100%;
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+}
 
+.GameBtns{
+  height:180px;
+  width:140px;
+  text-align: center;
+}
 
+.smallGameBtns{
+  height:60px;
+  width:140px;
+  text-align: center;
+}
 
+.btnContainer{
+  display:flex;
+  flex-direction:column;
+  margin:3px;
+}
 
-
+.LargeGameBtns{
+  height:250px;
+  width:140px;
+  text-align: center;
+}
 
 
 
@@ -302,3 +321,36 @@ code {
 
 
 
+/* R-P-S */
+
+.rps{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-top: 20px;
+  flex-direction: column;
+  width: 500px;
+  height: 370px;
+}
+
+.rpsHeading{
+  padding: 10px;
+  text-align: center;
+}
+
+.FirstRps{
+  padding:30px;
+}
+
+.LastRps{
+  padding:30px;
+}
+
+.rpsBtn{
+  padding: 10px;
+  cursor: pointer;
+}
+
+.rps .rpsBtn:hover{
+  background-color: none;
+}
