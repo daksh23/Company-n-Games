@@ -318,15 +318,11 @@ code {
 }
 
 
-
-
-
 /* R-P-S */
 
 .rps{
   display: flex;
   align-items: center;
-  height: 100%;
   margin-top: 20px;
   flex-direction: column;
   width: 500px;
@@ -336,6 +332,8 @@ code {
 .rpsHeading{
   padding: 10px;
   text-align: center;
+  margin-top: 30px;
+  font-family: 'Pacifico',
 }
 
 .FirstRps{
@@ -353,4 +351,34 @@ code {
 
 .rps .rpsBtn:hover{
   background-color: none;
+}
+
+
+.ProfileContainer{
+  display: flex;
+  margin-top: 20px;
+  flex-direction: row;
+  width: 550px;
+  height: 370px;
+  padding: 20px;
+}
+
+.profileHeading{
+  padding: 10px;
+  text-align: center;
+  margin-top: 30px;
+  font-family: 'Pacifico',
+}
+
+.profileImage{
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  margin-top: 20px;
+}
+
+.profileFields{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }

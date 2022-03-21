@@ -12,6 +12,8 @@ const RockPaperScissors = ({open, handleClose}) => {
     const [computerChoices,
         setComputerChoice] = useState("");
 
+    
+
     const setChoice = (e) => {
 
         setPlayerChoice(e.target.dataset.id);
@@ -19,11 +21,13 @@ const RockPaperScissors = ({open, handleClose}) => {
         
         const computerChoiceIndex = Math.floor(Math.random() * choices.length);
         const computerAns = choices[computerChoiceIndex];
-        
         setComputerChoice(computerAns);
         
+        const timer = setTimeout(() => {
+            result(computerAns, playerAns);
+            clearTimeout(timer);
+          }, 1000);
 
-        result(computerAns, playerAns);
 
     };
 

@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Dialog, Typography, Divider, makeStyles, Link} from '@material-ui/core';
 import {Button, TextField, IconButton} from '@mui/material';
 import Google from '@mui/icons-material/Google';
+import { useSelector, useDispatch } from 'react-redux'
+import { LoginAction } from '../States/actions/actions';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,6 +38,8 @@ const useStyles = makeStyles(theme => ({
 
 const LoginModel = ({open, handleClose}) => {
 
+    const dispatch = useDispatch()
+
     const classes = useStyles();
 
     const [User,
@@ -43,7 +47,8 @@ const LoginModel = ({open, handleClose}) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(User);
+
+        dispatch(LoginAction(User)); // dispatch action to reducer
         handleClose();
     };
 

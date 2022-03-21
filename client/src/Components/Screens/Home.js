@@ -5,6 +5,7 @@ import {Container, Grid, Paper, Typography} from '@material-ui/core';
 import LoginModel from '../Extra/LoginModel';
 import SignupModel from '../Extra/SignupModel';
 import RockPaperScissors from '../Rock-Paper-Scissors/RockPaperScissors';
+import Profile from './Profile';
 
 function Home() {
 
@@ -14,6 +15,7 @@ function Home() {
         setopenSignup] = useState(false);
     
     const [openRPS, setopenRPS] = useState(false);
+    const [openProfile, setopenProfile] = useState(false);
         
 
     // function to handle modal open
@@ -22,7 +24,10 @@ function Home() {
             setopenLogin(true);
         } else if (string === 'signup') {
             setopenSignup(true);
-        } 
+        }
+        else if (string === 'profile') {
+            setopenProfile(true);
+        }
         else if (string === 'rps') {
             setopenRPS(true);
         }
@@ -37,12 +42,13 @@ function Home() {
         setopenLogin(false)
         setopenSignup(false)
         setopenRPS(false)
+        setopenProfile(false)
     };
 
         return (
         <div className="HomeScreen">
             <div className='btnContainer'>
-                <Button variant="outlined" className='LargeGameBtns' href='/profile' >
+                <Button variant="outlined" className='LargeGameBtns' onClick={() => handleOpen('profile')}>
                     Profile
                 </Button>
             </div>
@@ -144,12 +150,13 @@ function Home() {
             </div>
             <div className='btnContainer'>
                 <Button variant="outlined" className='LargeGameBtns' href='/profile' >
-                    Profile Builder
+                    Avatar Builder
                 </Button>
             </div>
             <LoginModel open={openLogin} handleClose={handleClose}/>
             <SignupModel open={openSignup} handleClose={handleClose}/>
             <RockPaperScissors open={openRPS} handleClose={handleClose} />
+            <Profile open={openProfile} handleClose={handleClose} />
         </div>
     )
 }

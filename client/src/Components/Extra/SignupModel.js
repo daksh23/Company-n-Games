@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Dialog, Typography, Divider, makeStyles} from '@material-ui/core';
 import {Button, TextField, IconButton} from '@mui/material';
 import Google from '@mui/icons-material/Google';
+import { useDispatch, useSelector } from 'react-redux';
+import { SignUpAction } from '../States/actions/actions';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -44,13 +46,17 @@ const useStyles = makeStyles(theme => ({
 const SignupModel = ({open, handleClose}) => {
 
     const classes = useStyles();
+    const dispatch = useDispatch()
+    // const signup = useSelector(state => state)
 
     const [User,
         setUser] = useState({'firstname': '', 'lastname': '', 'email': '', 'password': ''});
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(User);
+
+        dispatch(SignUpAction(User)); // dispatch action to reducer
+
         handleClose();
     };
 
