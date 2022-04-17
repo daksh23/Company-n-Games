@@ -44,9 +44,9 @@ const RockPaperScissors = ({open, handleClose}) => {
 
 return (
         <Dialog open={open} onClose={handleClose}>
-        <Typography variant="h5" component="h5" className='rpsHeading'>
+        <h5 className='rpsHeading'>
             Rock Paper Scissors
-        </Typography>
+        </h5>
         <div className='rps'>
             <div className='FirstRps'>
                 <Button

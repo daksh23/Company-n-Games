@@ -6,6 +6,7 @@ const fs = require('fs');
 const http = require('http');
 const bodyParser = require('body-parser');
 const { databaseConnection } = require('./config/db');
+const path = require('path')
 
 // socket connection
 const socketio = require('socket.io');
@@ -22,11 +23,15 @@ app.use(express.json());
 
 app.use(express.static(__dirname + '/uploads'));
 app.use(express.static(__dirname + "/images"));
+// console.log(path.join(__dirname, "images"));
+app.use("/profile", express.static(path.join(__dirname, "images/profiles")));
+app.use("/puzzle", express.static(path.join(__dirname, "images/puzzle")));
+ 
 
 // get routes
 app.use("/api", apiroutes);
 
-// looking for socket connection
+// looking for socket connecption
 io.on('connection', (socket) => { console.log('New Socket Connection...!') });
 
 // Database Connection

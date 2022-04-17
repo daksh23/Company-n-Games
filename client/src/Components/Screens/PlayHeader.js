@@ -9,10 +9,14 @@ import {useNavigate} from "react-router-dom";
 
 const PlayHeader = ({name}) => {
 
+
+    const myArray = name.split("/");
+    const ps = myArray[0]
+    console.log(ps)
+
     let navigate = useNavigate();
 
     const closeGame = () => {
-        // removeCookie('cookie-name');
         navigate('/');
     }
 
@@ -36,7 +40,7 @@ const PlayHeader = ({name}) => {
                     }}
                         className='PlayHeader-text'>
 
-                        {name}
+                        { ps === 'PUZZLESOLVER' ? ps : name }
                     </Typography>
 
                     <IconButton

@@ -1,22 +1,26 @@
 import React, {useState} from 'react'
 import {Fab, Button} from '@mui/material';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import {Container, Grid, Paper, Typography} from '@material-ui/core';
-import LoginModel from '../Extra/LoginModel';
-import SignupModel from '../Extra/SignupModel';
+import LoginModel from './LoginModel';
+import SignupModel from './SignupModel';
 import RockPaperScissors from '../Rock-Paper-Scissors/RockPaperScissors';
 import Profile from './Profile';
+import {toast, ToastContainer} from 'react-toastify';
+import {useDispatch, useSelector} from 'react-redux';
 
 function Home() {
+
+    const st = useSelector(state => state)
+    console.log(st.login)
 
     const [openLogin,
         setopenLogin] = useState(false);
     const [openSignup,
         setopenSignup] = useState(false);
-    
-    const [openRPS, setopenRPS] = useState(false);
-    const [openProfile, setopenProfile] = useState(false);
-        
+
+    const [openRPS,
+        setopenRPS] = useState(false);
+    const [openProfile,
+        setopenProfile] = useState(false);
 
     // function to handle modal open
     const handleOpen = (string) => {
@@ -24,14 +28,11 @@ function Home() {
             setopenLogin(true);
         } else if (string === 'signup') {
             setopenSignup(true);
-        }
-        else if (string === 'profile') {
+        } else if (string === 'profile') {
             setopenProfile(true);
-        }
-        else if (string === 'rps') {
+        } else if (string === 'rps') {
             setopenRPS(true);
-        }
-        else {
+        } else {
             setopenLogin(false);
             setopenSignup(false);
         }
@@ -45,10 +46,13 @@ function Home() {
         setopenProfile(false)
     };
 
-        return (
+    return (
         <div className="HomeScreen">
             <div className='btnContainer'>
-                <Button variant="outlined" className='LargeGameBtns' onClick={() => handleOpen('profile')}>
+                <Button
+                    variant="outlined"
+                    className='LargeGameBtns'
+                    onClick={() => handleOpen('profile')}>
                     Profile
                 </Button>
             </div>
@@ -92,7 +96,8 @@ function Home() {
                     fontSize: '15px'
                 }}
                     variant="outlined"
-                    className='GameBtns' onClick={() => handleOpen('rps')}>
+                    className='GameBtns'
+                    onClick={() => handleOpen('rps')}>
                     Rock-Paper-Scissors
                 </Button>
                 <Button
@@ -149,14 +154,21 @@ function Home() {
                 </Button>
             </div>
             <div className='btnContainer'>
-                <Button variant="outlined" className='LargeGameBtns' href='/profile' >
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                    toast("Coming soon")
+                }}
+                    className='LargeGameBtns'
+                    >
                     Avatar Builder
                 </Button>
             </div>
             <LoginModel open={openLogin} handleClose={handleClose}/>
             <SignupModel open={openSignup} handleClose={handleClose}/>
-            <RockPaperScissors open={openRPS} handleClose={handleClose} />
-            <Profile open={openProfile} handleClose={handleClose} />
+            <RockPaperScissors open={openRPS} handleClose={handleClose}/>
+            <Profile open={openProfile} handleClose={handleClose}/>
+            <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={true}/>
         </div>
     )
 }

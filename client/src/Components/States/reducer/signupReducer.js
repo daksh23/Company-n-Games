@@ -3,8 +3,6 @@ import { SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAIL } from '../const.js';
 
 const signupReducer = (state = { signup:[] }, action) => {
 
-  console.log(state);
-  
   switch (action.type) {
     case SIGN_UP_REQUEST:
       return { loading: true }

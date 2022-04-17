@@ -1,6 +1,7 @@
 import { SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAIL, LOGIN_SUCCESS, LOGIN_REQUEST ,LOGIN_FAIL } from '../const.js';
 import axios from 'axios'
 
+
 const setBossImage = (image) => {
     localStorage.setItem('boss', image);
 
@@ -18,6 +19,7 @@ const SignUpAction = (User) => async(dispatch) => {
 		const { data } = await axios.post('http://localhost:3030/api/user/signup', userData);
 
         console.log(data);
+		localStorage.setItem("token", data.data.token);
 
 		dispatch({	
 			type: SIGN_UP_SUCCESS,
@@ -32,7 +34,7 @@ const SignUpAction = (User) => async(dispatch) => {
     }
 }
 
-const LoginAction = (User) => async(dispatch) => {
+const LoginAction = (User) => async(dispatch,getState) => {
 
     try {
 
@@ -42,12 +44,15 @@ const LoginAction = (User) => async(dispatch) => {
 
 		const { data } = await axios.post('http://localhost:3030/api/user/login', userData);
 
-        console.log(data);
-
 		dispatch({	
 			type: LOGIN_SUCCESS,
-			payload: data
+			payload: data.data
 		});
+		
+		const { login } = getState();
+
+		// localStorage.setItem("UserData", JSON.stringify(data.data))
+		localStorage.setItem("token", data.data.token);
 
     } catch (e) {
         dispatch({

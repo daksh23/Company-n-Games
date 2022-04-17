@@ -2,10 +2,11 @@ var imageToSlices = require("image-to-slices");
 var fs = require("fs");
 const path = require("path");
 const Puzzle = require("../Models/puzzle.model");
+const Profile = require("../Models/profile.model");
 var mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 
-const profilePath = "http://localhost:3030";
+const basicPath = "http://localhost:3030";
 
 // data url regx
 var regex = /^data:.+\/(.+);base64,(.*)$/;
@@ -105,40 +106,53 @@ const createSlices = async (imagePath, _id) => {
         fs.writeFileSync(filePath, buffer);
       }
 
-      Puzzle.updateOne({ _id }, { $set: { puzzleImages: files } }).then(
-        (res) => {
-          console```````.log(res);```````
-        }
-      );
+      Puzzle.updateOne({ _id }, { $set: { puzzleImages: files } })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log("helo");
+          console.log(e);
+        });
     }
   );
 };
 
 const sendChanllenge = async (req, res) => {
   try {
-
     const time = Number(req.body.allocatedTime);
 
     const puzzle = new Puzzle({
-      send: req.body.send,
-      to: req.body.toUser,
+      send: ObjectId(req.user.id),
+      to: ObjectId(req.body.to),
       masterImage: req.file.filename,
       allocatedTime: time,
     });
 
+    // const result = await Puzzle.insertMany([puzzle]);
+
+    // // console.log(result);
+    // createSlices(req.file.filename, result._id);
+
+    // return res.json({ status: true, message: "Puzzle Created Successfully" });
+
     puzzle.save((err, result) => {
       if (err) {
+        console.log(err.toString());
         return res.json({ err });
       }
-      console.log()
+
       createSlices(req.file.filename, result._id);
 
       return res.json({ status: true, message: "Puzzle Created Successfully" });
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getChanllenges = async (req, res) => {
+  console.log(req.user);
   const challenges = await Puzzle.aggregate([
     {
       $match: {
@@ -156,17 +170,38 @@ const getChanllenges = async (req, res) => {
     },
     { $unwind: "$challenger" },
     {
+      $lookup: {
+        from: "users",
+        foreignField: "_id",
+        localField: "send",
+        as: "user",
+      },
+    },
+    { $unwind: "$user" },
+    {
       $set: {
         "challenger.profileImage": {
-          $concat: [profilePath, "/profile/", "$challenger.profileImage"],
+          $concat: [basicPath, "/profile/", "$challenger.profileImage"],
+        },
+      },
+    },
+    {
+      $set: {
+        "challenger.name": {
+          $concat: ["$user.firstName", " ", "$user.lastName"],
         },
       },
     },
     {
       $project: {
         _id: 1,
-        challenger: 1,
-        allocatedTime: 1,
+        name: "$challenger.name",
+        nickName: "$challenger.username",
+        profileImage: "$challenger.profileImage",
+        UserID: "$challenger.UserID",
+        color: "#fff",
+        // challenger: 1,
+        // allocatedTime: 1,
       },
     },
   ]);
@@ -189,46 +224,65 @@ const getPuzzle = async (req, res) => {
           $map: {
             input: "$puzzleImages",
             as: "p",
-            in: { $concat: [profilePath, "/puzzle/", "$$p"] },
+            in: { $concat: [basicPath, "/puzzle/", "$$p"] },
           },
         },
       },
     },
   ]);
 
-  puzzle[0].puzzleImages = shuffleImages(puzzle[0].puzzleImages);
+  // puzzle[0].puzzleImages = shuffleImages(puzzle[0].puzzleImages);
 
   return res.json({ puzzle: puzzle[0] });
 };
 
 const submitPuzzle = async (req, res) => {
-  let { _id, puzzleImages, takenTime } = req.body;
+  let { _id, puzzleImages, timeTaken } = req.body;
 
   if (
     puzzleImages.length < 9 ||
     puzzleImages.includes("") ||
     puzzleImages.includes(null)
   ) {
-    return res.json({ message: "Not Valid Image" });
+    return res.json({ status: false, message: "Not Valid Image" });
+  }
+
+  const puzzle = await Puzzle.findOne({ _id }).lean();
+
+  var valid = true;
+  for (let index = 0; index < puzzleImages.length; index++) {
+    if (puzzleImages[index] !== puzzle.puzzleImages[index]) {
+      valid = false;
+      break;
+    }
+  }
+
+  console.log(valid);
+  if (!valid) {
+    console.log(timeTaken);
+    if (timeTaken <= puzzle.allocatedTime * 60 * 1000) {
+      return res.json({
+        status: false,
+        message: "Not Valid Image. please try again",
+      });
+    }
+    console.log();
   }
 
   let query = {
     _id: _id,
   };
 
-  for (let index = 0; index < puzzleImages.length; index++) {
-    query[`puzzleImages.${index}`] = puzzleImages[index];
-  }
-
-  // console.log(query);
-
   const result = await Puzzle.updateOne(query, {
-    $set: { status: "COMPLETED", takenTime: takenTime },
+    $set: {
+      status: valid === true ? "COMPLETED" : "FAILED",
+      takenTime: timeTaken,
+    },
   });
 
-  // console.log(result);
+  console.log(result);
 
-  return res.json({ result });
+  return res.json({ status: true, message: "Puzzle completed" });
 };
 
 const getHistory = async (req, res) => {
@@ -236,7 +290,7 @@ const getHistory = async (req, res) => {
     {
       $match: {
         to: ObjectId(req.user.id),
-        status: "COMPLETED",
+        status: { $ne: "PENDING" },
       },
     },
     {
@@ -251,7 +305,7 @@ const getHistory = async (req, res) => {
     {
       $set: {
         "challenger.profileImage": {
-          $concat: [profilePath, "/profile/", "$challenger.profileImage"],
+          $concat: [basicPath, "/profile/", "$challenger.profileImage"],
         },
       },
     },
@@ -261,11 +315,23 @@ const getHistory = async (req, res) => {
         challenger: 1,
         allocatedTime: 1,
         takenTime: 1,
+        status: 1,
       },
     },
   ]);
 
   return res.json({ challenges });
+};
+
+const getUsers = async (req, res) => {
+  const users = await Profile.find({ UserID: { $ne: ObjectId(req.user.id) } })
+    .populate({
+      path: "UserID",
+      select: "firstName lastName",
+    })
+    .lean();
+
+  return res.send({ users });
 };
 
 module.exports = {
@@ -275,4 +341,5 @@ module.exports = {
   getPuzzle,
   submitPuzzle,
   getHistory,
+  getUsers,
 };

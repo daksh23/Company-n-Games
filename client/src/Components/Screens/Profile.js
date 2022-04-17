@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {Dialog, Typography, Divider, makeStyles, Link} from '@material-ui/core';
-import {Button, TextField, IconButton} from '@mui/material';
+import React from 'react';
+import {Dialog, makeStyles, Link} from '@material-ui/core';
+import {Button, TextField } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -38,19 +38,26 @@ const Profile = ({open, handleClose}) => {
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            <Typography variant="h4" component="h4" className='profileHeading'>
-                Profile
-            </Typography>
-            <div className='ProfileContainer'>
-                <div className='profileImage'>
-                    <img
-                        style={{ height:'150px', width:'180px' }}
-                        src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
-                        alt="new"/>
+            <div className="card">
+                <img
+                    src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
+                    alt="John"
+                    style={{width:"100%"}}/>
+                <div className='ProfileText'>
+                    <TextField className='profile-text' fullWidth  defaultValue='Name'  id="Name"  variant="filled" />
                 </div>
-                <div className='profileFields'>
-                    
+                <div className='ProfileText'>
+                    <TextField className='Profile-text' fullWidth  defaultValue='UserName'  id="UserName"  variant="filled" />
                 </div>
+                <div className='ProfileText'>
+                    <TextField className='Profile-text' fullWidth  defaultValue='Email'  id="Email"  variant="filled" />
+                </div>
+                <div className='ProfileText'>
+                    <TextField className='Profile-text' fullWidth  defaultValue='password'  id="Password"  variant="filled" />
+                </div>
+
+                <button className='updateBtn'> Update </button>
+
             </div>
         </Dialog>
     )
