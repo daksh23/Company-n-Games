@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Dialog, Typography, Divider, makeStyles} from '@material-ui/core';
 import {Button, TextField, IconButton} from '@mui/material';
 import Google from '@mui/icons-material/Google';
 import {useDispatch, useSelector} from 'react-redux';
 import {SignUpAction} from '../States/actions/actions';
+import { toast,ToastContainer } from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,18 +50,23 @@ const SignupModel = ({open, handleClose}) => {
     const dispatch = useDispatch()
     const {signup} = useSelector(state => state)
 
-    const { loading } = signup;
-
+    const {loading} = signup;
+    
     const [User,
-        setUser] = useState({'firstname': '', 'lastname': '', 'email': '', 'password': ''});
+        setUser] = useState({'firstname': '', 'lastname': '', 'username': '', 'email': '', 'password': ''});
 
     const handleSubmit = e => {
         e.preventDefault();
 
         dispatch(SignUpAction(User)); // dispatch action to reducer
-    };
 
-    
+        if (signup.success) {
+            handleClose();
+        }
+        else{
+            toast("Signup Failed:",signup.fail.message)
+        }
+    };
 
     return (
         <Dialog open={open} onClose={handleClose}>
@@ -97,6 +103,20 @@ const SignupModel = ({open, handleClose}) => {
                             variant="filled"
                             type="text"
                             required/>
+
+                        <TextField
+                            value={User.username}
+                            onChange={e => {
+                            setUser({
+                                ...User,
+                                username: e.target.value
+                            })
+                        }}
+                            label="UserName"
+                            variant="filled"
+                            type="text"
+                            required/>
+
                         <TextField
                             value={User.email}
                             onChange={e => {
@@ -142,9 +162,9 @@ const SignupModel = ({open, handleClose}) => {
                     <Button className={classes.closeBtn} variant="contained" onClick={handleClose}>
                         close
                     </Button>
+                    <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={true}/>
                 </React.Fragment>
 }
-
         </Dialog>
     );
 };

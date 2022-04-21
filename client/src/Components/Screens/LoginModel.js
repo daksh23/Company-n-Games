@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {Dialog, Typography, Divider, makeStyles, Link} from '@material-ui/core';
 import {Button, TextField, IconButton} from '@mui/material';
 import Google from '@mui/icons-material/Google';
-import { useSelector, useDispatch } from 'react-redux'
-import { LoginAction } from '../States/actions/actions';
+import {useSelector, useDispatch} from 'react-redux'
+import {LoginAction} from '../States/actions/actions';
+import {ToastContainer, toast} from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -40,6 +41,10 @@ const LoginModel = ({open, handleClose}) => {
 
     const dispatch = useDispatch()
 
+    const stage = useSelector(state => state.login)
+
+    const {login, loading} = stage;
+
     const classes = useStyles();
 
     const [User,
@@ -49,58 +54,78 @@ const LoginModel = ({open, handleClose}) => {
         e.preventDefault();
 
         dispatch(LoginAction(User)); // dispatch action to reducer
-        handleClose();
+
+
+        if (login) {
+            handleClose();
+        } else {
+            toast("invalid credentials");
+        }
     };
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            <Typography variant="h4" component="h4" className={classes.Heading}>
-                Login
-            </Typography>
-            {/* login with email and password */}
-            <form onSubmit={handleSubmit} className={classes.root}>
-                <TextField
-                    label="Email"
-                    variant="filled"
-                    type="email"
-                    value={User.email}
-                    onChange={e => setUser({...User, email:e.target.value})}
-                    required/>
-                <TextField
-                    label="Password"
-                    variant="filled"
-                    type="password"
-                    value={User.password}
-                    onChange={e => setUser({...User, password:e.target.value})}
-                    required/>
 
-                <Link href="#" variant="body2" className={classes.linkDiv}>
-                    Forgot password?
-                </Link>
+            {loading
+                ? "Loading"
+                : (
+                    <React.Fragment>
+                        <Typography variant="h4" component="h4" className={classes.Heading}>
+                            Login
+                        </Typography>
+                        {/* login with email and password */}
+                        <form onSubmit={handleSubmit} className={classes.root}>
+                            <TextField
+                                label="Email"
+                                variant="filled"
+                                type="email"
+                                value={User.email}
+                                onChange={e => setUser({
+                                ...User,
+                                email: e.target.value
+                            })}
+                                required/>
+                            <TextField
+                                label="Password"
+                                variant="filled"
+                                type="password"
+                                value={User.password}
+                                onChange={e => setUser({
+                                ...User,
+                                password: e.target.value
+                            })}
+                                required/>
 
-                <Button type="submit" variant="contained">
-                    Login
-                </Button>
-            </form>
+                            <Link href="#" variant="body2" className={classes.linkDiv}>
+                                Forgot password?
+                            </Link>
 
-            <Divider/>
+                            <Button type="submit" variant="contained">
+                                Login
+                            </Button>
+                        </form>
 
-            {/* login with google */}
-            <IconButton
-                aria-label="google"
-                sx={{
-                "&:hover": {
-                    backgroundColor: "transparent"
-                }
-            }}>
-                <Google/>
-            </IconButton>
+                        <Divider/> {/* login with google */}
+                        <IconButton
+                            aria-label="google"
+                            sx={{
+                            "&:hover": {
+                                backgroundColor: "transparent"
+                            }
+                        }}>
+                            <Google/>
+                        </IconButton>
 
-            {/* part */}
-            <Divider variant="middle"/> {/* close */}
-            <Button className={classes.closeBtn} variant="contained" onClick={handleClose}>
-                close
-            </Button>
+                        {/* part */}
+                        <Divider variant="middle"/> {/* close */}
+                        <Button className={classes.closeBtn} variant="contained" onClick={handleClose}>
+                            close
+                        </Button>
+
+                        <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={true}/>
+                    </React.Fragment>
+                )
+}
         </Dialog>
     );
 };

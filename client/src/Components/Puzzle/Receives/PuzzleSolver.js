@@ -4,17 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {submitPuzzle, getPuzzle} from "../../../Services/puzzleServices";
-import {Button, Grid, Box} from "@mui/material";
-
-// const puzzlePis = [
-// "https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Pict
-// u re." +     "jpg",
-// "https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Pict
-// u re." +     "jpg",
-// "https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Pict
-// u re." +     "jpg",
-// "https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Pict
-// u re." +     "jpg", ];
+import {Button, Grid, Container} from "@mui/material";
 
 function PuzzleSolver(props) {
     const {challengeId} = useParams();
@@ -162,12 +152,10 @@ function PuzzleSolver(props) {
     }, []);
 
     return (
-        <Box
-            sx={{
-            height: "100%",
-        }}>
+        <Container fixed style={{padding:20, marginTop:20}}>
 
-          <Grid container spacing={1}>
+            <div>
+            <Grid container spacing={1}>
                 <Grid item xs={6}>
                     <Grid container spacing={1}>
                         {puzzle && puzzle.map((x, i) => (
@@ -186,14 +174,14 @@ function PuzzleSolver(props) {
                                     }}
                                         component="div"
                                         sx={{
-                                        width: 200,
-                                        height: 150
+                                        width: 150,
+                                        height:100
                                     }}/>)
                                     : (<CardMedia
                                         component="img"
                                         sx={{
-                                        width: 200,
-                                        height: 150
+                                        width: 150,
+                                        height: 100
                                     }}
                                         image={x}
                                         alt="Used"
@@ -229,8 +217,9 @@ function PuzzleSolver(props) {
                 </Grid>
             </Grid>
 
-
-            <Grid
+            </div>
+            <div>
+                <Grid
                     container
                     spacing={1}
                     style={{
@@ -250,9 +239,11 @@ function PuzzleSolver(props) {
                             Submit
                         </Button>
                     </Grid>
-            </Grid>
+                </Grid>
+            </div>
+           
             <ToastContainer/>
-        </Box>
+        </Container>
     );
 }
 

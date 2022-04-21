@@ -1,9 +1,7 @@
 import {  LOGIN_SUCCESS, LOGIN_REQUEST ,LOGIN_FAIL } from '../const.js';
 
-const LoginReducer = (state = { login:[] }, action) => {
+const LoginReducer = (state = {}, action) => {
 
-  console.log(state);
-  
   switch (action.type) {
     case LOGIN_REQUEST:
       return { loading: true }

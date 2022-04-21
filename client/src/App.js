@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from './Components/Screens/Home';
 import Puzzle from './Components/Puzzle/Puzzle';
@@ -10,6 +10,19 @@ import SnakeGame from './Components/Snake/SnakeGame';
 import SuffleHeader from './Components/Screens/SuffleHeader';
 
 function App() {
+
+    // useEffect(() => {
+    //     // window.onload = function () {  
+    //     //     document.onkeydown = function (e) {  
+    //     //         return (e.which || e.keyCode) != 116;  
+    //     //     };  
+    //     // }
+
+    //     // window.onbeforeunload = function() {
+    //     //     return "Dude, are you sure you want to leave? Think of the kittens!";
+    //     // }
+    // }, [])
+    
 
     return (
         <Router>

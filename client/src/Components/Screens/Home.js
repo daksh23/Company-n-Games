@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Fab, Button} from '@mui/material';
 import LoginModel from './LoginModel';
 import SignupModel from './SignupModel';
@@ -7,10 +7,9 @@ import Profile from './Profile';
 import {toast, ToastContainer} from 'react-toastify';
 import {useDispatch, useSelector} from 'react-redux';
 
-function Home() {
+import {Link} from 'react-router-dom'
 
-    const st = useSelector(state => state)
-    console.log(st.login)
+function Home() {
 
     const [openLogin,
         setopenLogin] = useState(false);
@@ -21,6 +20,18 @@ function Home() {
         setopenRPS] = useState(false);
     const [openProfile,
         setopenProfile] = useState(false);
+
+    const [toggle,
+        setToggle] = useState(false);
+
+    useEffect(() => {
+
+        const token = localStorage.getItem('token')
+        if (token) {
+            setToggle(true)
+        }
+
+    }, [toggle])
 
     // function to handle modal open
     const handleOpen = (string) => {
@@ -46,6 +57,13 @@ function Home() {
         setopenProfile(false)
     };
 
+    const logOut = () => {
+        localStorage.removeItem('token')
+        setToggle(false)
+        toast("You have been logged out")
+        window.location.reload(false);
+    }
+
     return (
         <div className="HomeScreen">
             <div className='btnContainer'>
@@ -57,37 +75,45 @@ function Home() {
                 </Button>
             </div>
             <div className='btnContainer'>
-                <Button
-                    variant='outlined'
-                    className='smallGameBtns'
-                    style={{
-                    marginTop: '5px',
-                    fontSize: '15px'
-                }}
-                    onClick={() => handleOpen('login')}>
-                    Login
-                </Button>
 
-                <Button
-                    style={{
-                    marginTop: '5px',
-                    fontSize: '15px'
-                }}
-                    href="puzzle"
-                    variant="outlined"
-                    className='GameBtns'>
-                    Puzzle
-                </Button>
-                <Button
-                    style={{
-                    marginTop: '5px',
-                    fontSize: '15px'
-                }}
-                    href="cyw"
-                    variant="outlined"
-                    className='GameBtns'>
-                    Crack Your Way
-                </Button>
+                        <Button
+                            variant='outlined'
+                            className='smallGameBtns'
+                            style={{
+                            marginTop: '5px',
+                            fontSize: '15px'
+                        }}
+                            onClick={() => {
+                                toggle ? logOut() : handleOpen('login')
+                            }}>
+                            { toggle ? 'Logout' : 'Login'}
+                        </Button>
+                   
+
+                <Link to="/puzzle" className='LinkWrapper'>
+                    <Button
+                        style={{
+                        marginTop: '5px',
+                        fontSize: '15px'
+                    }}
+                        variant="outlined"
+                        className='GameBtns'>
+                        Puzzle
+                    </Button>
+                </Link>
+
+                <Link to="/cyw" className='LinkWrapper'>
+                    <Button
+                        style={{
+                        marginTop: '5px',
+                        fontSize: '15px'
+                    }}
+                        variant="outlined"
+                        className='GameBtns'>
+                        Crack Your Way
+                    </Button>
+                </Link>
+
             </div>
             <div className='btnContainer'>
                 <Button
@@ -110,38 +136,46 @@ function Home() {
                     className='GameBtns'>
                     FunFriday
                 </Button>
-                <Button
-                    style={{
-                    marginTop: '5px',
-                    fontSize: '15px'
-                }}
-                    href="snake"
-                    variant="outlined"
-                    className='GameBtns'>
-                    Snake
-                </Button>
+
+                <Link to="/snake" className='LinkWrapper'>
+                    <Button
+                        style={{
+                        marginTop: '5px',
+                        fontSize: '15px'
+                    }}
+                        variant="outlined"
+                        className='GameBtns'>
+                        Snake
+                    </Button>
+                </Link>
+
             </div>
             <div className='btnContainer'>
-                <Button
-                    style={{
-                    marginTop: '5px',
-                    fontSize: '15px'
-                }}
-                    href="smashtheboss"
-                    variant="outlined"
-                    className='GameBtns'>
-                    Sm**h the boss
-                </Button>
-                <Button
-                    style={{
-                    marginTop: '5px',
-                    fontSize: '15px'
-                }}
-                    href="ttt"
-                    variant="outlined"
-                    className='GameBtns'>
-                    Tic-Tac-Toe
-                </Button>
+
+                <Link to="/smashtheboss" className='LinkWrapper'>
+                    <Button
+                        style={{
+                        marginTop: '5px',
+                        fontSize: '15px'
+                    }}
+                        variant="outlined"
+                        className='GameBtns'>
+                        Sm**h the boss
+                    </Button>
+                </Link>
+
+                <Link to="/ttt" className='LinkWrapper'>
+                    <Button
+                        style={{
+                        marginTop: '5px',
+                        fontSize: '15px'
+                    }}
+                        variant="outlined"
+                        className='GameBtns'>
+                        Tic-Tac-Toe
+                    </Button>
+                </Link>
+
                 <Button
                     variant='outlined'
                     className='smallGameBtns'
@@ -159,8 +193,7 @@ function Home() {
                     onClick={() => {
                     toast("Coming soon")
                 }}
-                    className='LargeGameBtns'
-                    >
+                    className='LargeGameBtns'>
                     Avatar Builder
                 </Button>
             </div>

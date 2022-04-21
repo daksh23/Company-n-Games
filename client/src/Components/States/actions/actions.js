@@ -18,8 +18,7 @@ const SignUpAction = (User) => async(dispatch) => {
 
 		const { data } = await axios.post('http://localhost:3030/api/user/signup', userData);
 
-        console.log(data);
-		localStorage.setItem("token", data.data.token);
+		console.log(data)
 
 		dispatch({	
 			type: SIGN_UP_SUCCESS,
@@ -34,7 +33,7 @@ const SignUpAction = (User) => async(dispatch) => {
     }
 }
 
-const LoginAction = (User) => async(dispatch,getState) => {
+const LoginAction = (User) => async(dispatch, getState) => {
 
     try {
 
@@ -43,16 +42,13 @@ const LoginAction = (User) => async(dispatch,getState) => {
         const userData = User;
 
 		const { data } = await axios.post('http://localhost:3030/api/user/login', userData);
-
+		
+		localStorage.setItem("token", data.data.token);
 		dispatch({	
 			type: LOGIN_SUCCESS,
 			payload: data.data
 		});
 		
-		const { login } = getState();
-
-		// localStorage.setItem("UserData", JSON.stringify(data.data))
-		localStorage.setItem("token", data.data.token);
 
     } catch (e) {
         dispatch({
