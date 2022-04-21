@@ -1,9 +1,12 @@
 import {LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAIL, TOGGLE_MODEL} from '../const.js';
 
+const userData = localStorage.getItem('userDetails');
+const tokenData = localStorage.getItem('token');
+
 const initialState = {
     loading: false,
-    token: "",
-    user: {},
+    token: tokenData || "",
+    user: JSON.parse(userData) || {},
     profile: {},
     loginModel: false,
     message:""

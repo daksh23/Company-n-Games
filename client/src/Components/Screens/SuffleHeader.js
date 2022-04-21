@@ -7,7 +7,6 @@ function SuffleHeader() {
     const location = useLocation();
     const path = location.pathname;
 
-    console.log(path.slice(1));
     const GameName = path.slice(1).toUpperCase();
 
   return (

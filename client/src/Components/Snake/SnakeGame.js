@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import Snake from './Snake';
 import SnakeFood from './SnakeFood';
 import {ToastContainer, toast} from 'react-toastify';
-import {
-  Button,
-} from '@mui/material';
+import {Button} from '@mui/material';
+import {connect} from "react-redux";
 
 const getRandomFood = () => {
     let min = 1;
@@ -26,8 +25,7 @@ const initialState = {
         [0, 2]
     ]
 };
-
-export default class SnakeGame extends Component {
+class SnakeGame extends Component {
 
     constructor() {
         super();
@@ -150,17 +148,18 @@ export default class SnakeGame extends Component {
     };
 
     gameOver() {
-        toast(`game over Player Name`)
+        toast(`game over ${this.props.firstName}`)  
         this.setState(initialState);
 
     }
 
-   
     render() {
         const {route, snakeDots, food} = this.state;
         return (
             <div className='snake-container'>
-                <h5> Your score : {snakeDots.length - 2} </h5>
+                <h5>
+                    Your score : {snakeDots.length - 2}
+                </h5>
                 {route === "menu"
                     ? (
                         <div className='snake-game-area'>
@@ -174,18 +173,22 @@ export default class SnakeGame extends Component {
                             <SnakeFood dot={food}/>
                         </div>
                     )}
-              
-                <br />
-                <Button
-                    variant="contained"
-                    size="large"
-                    onClick={this.onRouteChange}>
+
+                <br/>
+                <Button variant="contained" size="large" onClick={this.onRouteChange}>
                     Start
                 </Button>
-
 
                 <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={true}/>
             </div>
         );
     }
+
 }
+const mapStateToProps = (state) => {
+    return {
+        firstName: state.login.user.firstName
+    };
+};
+
+export default connect(mapStateToProps)(SnakeGame);

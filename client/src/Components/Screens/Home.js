@@ -1,5 +1,5 @@
-import React, { useState} from 'react'
-import { Button} from '@mui/material';
+import React, {useState} from 'react'
+import {Button} from '@mui/material';
 import LoginModel from './LoginModel';
 import SignupModel from './SignupModel';
 import RockPaperScissors from '../Rock-Paper-Scissors/RockPaperScissors';
@@ -8,20 +8,19 @@ import {toast} from 'react-toastify';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Link} from 'react-router-dom'
-import { TOGGLE_MODEL,SIGN_UP_TOGGLE_MODEL } from '../States/const';
+import {TOGGLE_MODEL, SIGN_UP_TOGGLE_MODEL} from '../States/const';
 
 function Home() {
 
     const dispatch = useDispatch()
 
-    const { token } = useSelector(state => state.login)
+    const {token, user} = useSelector(state => state.login)
 
     const [openRPS,
         setopenRPS] = useState(false);
     const [openProfile,
         setopenProfile] = useState(false);
 
-    
     // function to handle modal open
     const handleOpen = (string) => {
         if (string === 'login') {
@@ -35,7 +34,7 @@ function Home() {
             setopenRPS(true);
         } else {
             dispatch({type: SIGN_UP_TOGGLE_MODEL, payload: true});
-            
+
             dispatch({type: TOGGLE_MODEL, payload: false});
 
         }
@@ -48,8 +47,13 @@ function Home() {
     };
 
     const logOut = () => {
+
         localStorage.removeItem('token')
+
+        localStorage.removeItem('userDetails')
+
         toast("You have been logged out")
+
         window
             .location
             .reload(false);
@@ -62,7 +66,9 @@ function Home() {
                     variant="outlined"
                     className='LargeGameBtns'
                     onClick={() => handleOpen('profile')}>
-                    Profile
+                    {   Object.keys(user).length !== 0
+                        ? ` ${user.firstName} ${user.lastName}`
+                        : "Profile"}
                 </Button>
             </div>
             <div className='btnContainer'>
@@ -172,7 +178,9 @@ function Home() {
 
                 <Button
                     variant='outlined'
-                    disabled={token !== "" ? true : false }
+                    disabled={token !== ""
+                    ? true
+                    : false}
                     className='smallGameBtns'
                     style={{
                     marginTop: '5px',
@@ -193,7 +201,7 @@ function Home() {
                 </Button>
             </div>
             <LoginModel/>
-            <SignupModel />
+            <SignupModel/>
             <RockPaperScissors open={openRPS} handleClose={handleClose}/>
             <Profile open={openProfile} handleClose={handleClose}/>
         </div>

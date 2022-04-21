@@ -31,9 +31,9 @@ const SignUpAction = (User) => async(dispatch) => {
         if (data.status) {
             dispatch({type: SIGN_UP_SUCCESS, payload: data});
 
-        }else{
+        } else {
             dispatch({type: SIGN_UP_FAIL, payload: data.message});
-		}
+        }
 
         dispatch({type: SIGN_UP_TOGGLE_MODEL, payload: false});
 
@@ -56,12 +56,15 @@ const LoginAction = (User) => async(dispatch, getState) => {
 
         console.log(data)
 
-        if(!data.status){
+        if (!data.status) {
             message = data.message;
         }
 
+        // use localstorage for session
         localStorage.setItem("token", data.data.token);
-        localStorage.setItem("userDetails", data.data.User);
+
+        // set userdata into local storage
+        localStorage.setItem("userDetails", JSON.stringify(data.data.user));
 
         dispatch({type: LOGIN_SUCCESS, payload: data.data});
 
