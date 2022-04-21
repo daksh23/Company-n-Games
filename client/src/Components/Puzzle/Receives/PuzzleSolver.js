@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {submitPuzzle, getPuzzle} from "../../../Services/puzzleServices";
 import {Button, Grid, Container} from "@mui/material";
 
-function PuzzleSolver(props) {
+function PuzzleSolver() {
     const {challengeId} = useParams();
 
     var timeFuncton = () => {};
@@ -108,7 +108,7 @@ function PuzzleSolver(props) {
         const data = {
             _id: challengeId,
             timeTaken,
-            puzzleImages: solution.map((x) => (x == ""
+            puzzleImages: solution.map((x) => (x === ""
                 ? x
                 : x.split("puzzle/")[1]))
         };

@@ -4,7 +4,8 @@ import {Button, TextField, IconButton} from '@mui/material';
 import Google from '@mui/icons-material/Google';
 import {useDispatch, useSelector} from 'react-redux';
 import {SignUpAction} from '../States/actions/actions';
-import { toast,ToastContainer } from 'react-toastify';
+import {SIGN_UP_TOGGLE_MODEL} from '../States/const';
+import {toast} from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -44,34 +45,36 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const SignupModel = ({open, handleClose}) => {
+const SignupModel = () => {
 
     const classes = useStyles();
     const dispatch = useDispatch()
-    const {signup} = useSelector(state => state)
+    const stage = useSelector(state => state.signup)
 
-    const {loading} = signup;
-    
     const [User,
         setUser] = useState({'firstname': '', 'lastname': '', 'username': '', 'email': '', 'password': ''});
 
+    useEffect(() => {
+
+       if(stage.message !== ''){
+        toast(stage.message)
+       }
+
+    }, [stage.message])
+
     const handleSubmit = e => {
         e.preventDefault();
-
         dispatch(SignUpAction(User)); // dispatch action to reducer
-
-        if (signup.success) {
-            handleClose();
-        }
-        else{
-            toast("Signup Failed:",signup.fail.message)
-        }
     };
 
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog
+            open={stage.signupModel || false}
+            onClose={() => {
+            dispatch({type: SIGN_UP_TOGGLE_MODEL, payload: false})
+        }}>
 
-            {loading
+            {stage.loading
                 ? "Loading"
                 : <React.Fragment>
                     <Typography variant="h4" component="h4" className={classes.Heading}>
@@ -159,10 +162,14 @@ const SignupModel = ({open, handleClose}) => {
                     </IconButton>
 
                     {/* close */}
-                    <Button className={classes.closeBtn} variant="contained" onClick={handleClose}>
+                    <Button
+                        className={classes.closeBtn}
+                        variant="contained"
+                        onClose={() => {
+                        dispatch({type: SIGN_UP_TOGGLE_MODEL, payload: false})
+                    }}>
                         close
                     </Button>
-                    <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={true}/>
                 </React.Fragment>
 }
         </Dialog>

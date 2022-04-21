@@ -8,18 +8,20 @@ var mongoose = require('mongoose');
 // signup
 const signup = async(req, res) => {
 
-    const {firstname, lastname,username, email, password} = req.body;
+    const {firstname, lastname, username, email, password} = req.body;
 
     console.log(req.body)
 
-    const exists = await UserModel.findOne({email}); // check if username exists
+    const emailExists = await UserModel.findOne({email});
+    const userNameexist = await ProfileModel.findOne({username}) // check if username exists
 
-    if (exists) {
-        res.statusCode = 409;
-        return res.json({message: "Username Already Exists"});
+    if (emailExists) {
+        return res.json({status: false, message: "Email Already Exists"});
     }
 
-    // const salt = await bcrypt.genSalt(saltRounds);
+    if (userNameexist) {
+        return res.json({status: false, message: "Username Already Exists"});
+    }
 
     const hash = await bcrypt.hash(password, 10); // hash the password
 
@@ -30,7 +32,7 @@ const signup = async(req, res) => {
     user.password = hash;
     await user.save();
 
-    // username in profile 
+    // username in profile
     const profile = new ProfileModel();
     profile.UserID = user._id;
     profile.username = username;
@@ -39,7 +41,9 @@ const signup = async(req, res) => {
     console.log('user created')
 
     res.statusCode = 201;
-    res.json({message: `successfully created user`},statuscode);
+    res.json({
+        message: `successfully created user`
+    }, statuscode);
 }
 
 // login
@@ -50,12 +54,12 @@ const login = async(req, res) => {
 
     if (user) {
         var objectID = mongoose
-        .Types
-        .ObjectId(user._id);
+            .Types
+            .ObjectId(user._id);
     }
 
     if (!user || objectID == null) {
-        return res.send({message: "User Not Found"});
+        return res.send({status: false,message: "User Not Found"});
     } else {
 
         const matchPassword = await bcrypt.compare(password, user.password);
@@ -67,7 +71,9 @@ const login = async(req, res) => {
         if (matchPassword == true) {
 
             delete user.password;
-            const profile = await ProfileModel.findOne({userID:objectID}).lean()
+            const profile = await ProfileModel
+                .findOne({userID: objectID})
+                .lean()
 
             // set generated token in header and verify in middleware
             res
@@ -82,7 +88,7 @@ const login = async(req, res) => {
                 });
 
         } else {
-            return res.send("Wrong ID or Password");
+            return res.send({status: false, message:"Wrong ID or Password"});
         }
     }
 }

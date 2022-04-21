@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from './Components/Screens/Home';
 import Puzzle from './Components/Puzzle/Puzzle';
@@ -8,6 +8,7 @@ import Ttt from './Components/TicTacToe/Ttt';
 import PuzzleSolver from './Components/Puzzle/Receives/PuzzleSolver';
 import SnakeGame from './Components/Snake/SnakeGame';
 import SuffleHeader from './Components/Screens/SuffleHeader';
+import { ToastContainer} from 'react-toastify';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
     return (
         <Router>
             <SuffleHeader/>
+            <ToastContainer position='bottom-left' autoClose={2000} hideProgressBar={true}/>
             <Routes>
                 <Route exact path="/puzzle" element={< Puzzle />}/>
                 <Route

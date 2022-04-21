@@ -1,17 +1,28 @@
-import {  LOGIN_SUCCESS, LOGIN_REQUEST ,LOGIN_FAIL } from '../const.js';
+import {LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAIL, TOGGLE_MODEL} from '../const.js';
 
-const LoginReducer = (state = {}, action) => {
-
-  switch (action.type) {
-    case LOGIN_REQUEST:
-      return { loading: true }
-    case LOGIN_SUCCESS:
-      return {loading: false, login: action.payload };
-    case LOGIN_FAIL:
-      return { loading: false, login: action.payload };
-    default:
-      return state;
-  }
+const initialState = {
+    loading: false,
+    token: "",
+    user: {},
+    profile: {},
+    loginModel: false,
+    message:""
 }
-  
+
+const LoginReducer = (state = initialState, action) => {
+
+    switch (action.type) {
+        case TOGGLE_MODEL:
+            return { ...state, loginModel: action.payload }
+        case LOGIN_REQUEST:
+            return {...state, loading: true}
+        case LOGIN_SUCCESS:
+            return {...state, loading: false, token: action.payload.token, user: action.payload.user, profile: action.payload.profile, loginModel: false};
+        case LOGIN_FAIL:
+            return {...state, loading: false, message: action.payload};
+        default:
+            return state;
+    }
+}
+
 export default LoginReducer;

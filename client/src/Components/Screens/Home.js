@@ -1,67 +1,58 @@
-import React, {useEffect, useState} from 'react'
-import {Fab, Button} from '@mui/material';
+import React, { useState} from 'react'
+import { Button} from '@mui/material';
 import LoginModel from './LoginModel';
 import SignupModel from './SignupModel';
 import RockPaperScissors from '../Rock-Paper-Scissors/RockPaperScissors';
 import Profile from './Profile';
-import {toast, ToastContainer} from 'react-toastify';
+import {toast} from 'react-toastify';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Link} from 'react-router-dom'
+import { TOGGLE_MODEL,SIGN_UP_TOGGLE_MODEL } from '../States/const';
 
 function Home() {
 
-    const [openLogin,
-        setopenLogin] = useState(false);
-    const [openSignup,
-        setopenSignup] = useState(false);
+    const dispatch = useDispatch()
+
+    const { token } = useSelector(state => state.login)
 
     const [openRPS,
         setopenRPS] = useState(false);
     const [openProfile,
         setopenProfile] = useState(false);
 
-    const [toggle,
-        setToggle] = useState(false);
-
-    useEffect(() => {
-
-        const token = localStorage.getItem('token')
-        if (token) {
-            setToggle(true)
-        }
-
-    }, [toggle])
-
+    
     // function to handle modal open
     const handleOpen = (string) => {
         if (string === 'login') {
-            setopenLogin(true);
+            dispatch({type: TOGGLE_MODEL, payload: true});
+
         } else if (string === 'signup') {
-            setopenSignup(true);
+            dispatch({type: SIGN_UP_TOGGLE_MODEL, payload: true});
         } else if (string === 'profile') {
             setopenProfile(true);
         } else if (string === 'rps') {
             setopenRPS(true);
         } else {
-            setopenLogin(false);
-            setopenSignup(false);
+            dispatch({type: SIGN_UP_TOGGLE_MODEL, payload: true});
+            
+            dispatch({type: TOGGLE_MODEL, payload: false});
+
         }
     };
 
     // function to handle modal close
     const handleClose = () => {
-        setopenLogin(false)
-        setopenSignup(false)
         setopenRPS(false)
         setopenProfile(false)
     };
 
     const logOut = () => {
         localStorage.removeItem('token')
-        setToggle(false)
         toast("You have been logged out")
-        window.location.reload(false);
+        window
+            .location
+            .reload(false);
     }
 
     return (
@@ -76,19 +67,22 @@ function Home() {
             </div>
             <div className='btnContainer'>
 
-                        <Button
-                            variant='outlined'
-                            className='smallGameBtns'
-                            style={{
-                            marginTop: '5px',
-                            fontSize: '15px'
-                        }}
-                            onClick={() => {
-                                toggle ? logOut() : handleOpen('login')
-                            }}>
-                            { toggle ? 'Logout' : 'Login'}
-                        </Button>
-                   
+                <Button
+                    variant='outlined'
+                    className='smallGameBtns'
+                    style={{
+                    marginTop: '5px',
+                    fontSize: '15px'
+                }}
+                    onClick={() => {
+                    token !== ""
+                        ? logOut()
+                        : handleOpen('login')
+                }}>
+                    {token !== ""
+                        ? 'Logout'
+                        : 'Login'}
+                </Button>
 
                 <Link to="/puzzle" className='LinkWrapper'>
                     <Button
@@ -178,6 +172,7 @@ function Home() {
 
                 <Button
                     variant='outlined'
+                    disabled={token !== "" ? true : false }
                     className='smallGameBtns'
                     style={{
                     marginTop: '5px',
@@ -197,11 +192,10 @@ function Home() {
                     Avatar Builder
                 </Button>
             </div>
-            <LoginModel open={openLogin} handleClose={handleClose}/>
-            <SignupModel open={openSignup} handleClose={handleClose}/>
+            <LoginModel/>
+            <SignupModel />
             <RockPaperScissors open={openRPS} handleClose={handleClose}/>
             <Profile open={openProfile} handleClose={handleClose}/>
-            <ToastContainer position="bottom-left" autoClose={2000} hideProgressBar={true}/>
         </div>
     )
 }

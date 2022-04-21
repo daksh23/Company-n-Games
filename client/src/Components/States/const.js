@@ -7,3 +7,7 @@ export const SIGN_UP_FAIL = 'SIGN_UP_FAIL';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+
+
+export const TOGGLE_MODEL = 'TOGGLE_MODEL';
+export const SIGN_UP_TOGGLE_MODEL = 'SIGN_UP_TOGGLE_MODEL';

@@ -1,6 +1,5 @@
-import React, {useState, useEffect, useMemo} from 'react'
-import {Button, Dialog, Typography} from '@mui/material'
-import {useSpring, animated} from '@react-spring/web'
+import React, {useState,} from 'react'
+import {Button, Dialog} from '@mui/material'
 import {ToastContainer, toast} from 'react-toastify';
 
 const RockPaperScissors = ({open, handleClose}) => {

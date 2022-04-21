@@ -9,10 +9,7 @@ import {
 } from '@mui/material';
 import {ToastContainer, toast} from 'react-toastify';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-
-// import {setBossImage} from '../actions/actions'
-import {useDispatch, useSelector} from 'react-redux'
-// import Tofile from 'data-uri-to-file';
+import { useSelector} from 'react-redux'
 
 function SmashBoss() {
 
@@ -101,13 +98,6 @@ function SmashBoss() {
         }
         return console.log(`Smashed!! : ${index} `);
     }
-
-    // file uplaoding
-    const changeHandler = (event) => {
-
-        // dispatch(setBossImage(event.target.files[0]));
-
-    };
 
     const cs = () => {
         toast('coming soon')
